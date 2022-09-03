@@ -15,7 +15,8 @@ import { RegisterComponent } from './account/components/register/register.compon
 import { LoginComponent } from './account/components/login/login.component';
 import { ConfigComponent } from './account/components/config/config.component';
 import { FooterComponent } from './_components/footer/footer.component';
-import { HeaderComponent } from './_components/header/header.component'
+import { HeaderComponent } from './_components/header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HeaderComponent } from './_components/header/header.component'
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
