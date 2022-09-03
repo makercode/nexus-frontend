@@ -13,7 +13,9 @@ import { AccountComponent } from './account/account.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './account/components/register/register.component';
 import { LoginComponent } from './account/components/login/login.component';
-import { ConfigComponent } from './account/components/config/config.component'
+import { ConfigComponent } from './account/components/config/config.component';
+import { FooterComponent } from './_components/footer/footer.component';
+import { HeaderComponent } from './_components/header/header.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ConfigComponent } from './account/components/config/config.component'
     AboutComponent,
     RegisterComponent,
     LoginComponent,
-    ConfigComponent
+    ConfigComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
