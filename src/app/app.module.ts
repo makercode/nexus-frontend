@@ -18,6 +18,11 @@ import { FooterComponent } from './_components/footer/footer.component';
 import { HeaderComponent } from './_components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { MatToolbarModule,  } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +39,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
+    // Material
+    MatToolbarModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+
+    // Angular fire
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
