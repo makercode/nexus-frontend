@@ -1,4 +1,7 @@
 .logo {
+  height: 32px;
+  margin-top: auto;
+  margin-bottom: auto;
   font-size: 26px;
   line-height: 1.4em;
   vertical-align: middle;
