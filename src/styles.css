@@ -19,6 +19,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+small {
+  font-size: .5em;
+}
+
 .ml-auto {
   margin-left: auto!important;
 }
