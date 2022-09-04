@@ -1,0 +1,11 @@
+.cta {
+  display: flex;
+}
+.cta-content {
+  display: flex;
+  flex-direction: row;
+  padding: 12px;
+  padding-left: 20px;
+  border: 1px solid #ddd;
+  border-radius: 36px;
+}
