@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from '../../../services';
+import { AuthService } from '../../../../_services';
 import { NgForm } from '@angular/forms';
-import { AlertHelper } from './../../../shared/alert/alert.helper';
+import { AlertHelper } from './../../../../shared/alert/alert.helper';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +27,12 @@ export class LoginComponent implements OnInit {
     // this.loading = true
     const email = form.value.email
     const password = form.value.password
-    let authResponse = this.authService.signinUser(email, password)
+    let authResponse = this.authService.signIn(email, password)
     console.log("auth try")
     console.log(authResponse)
   }
 
   onLogOut() {
-    this.authService.logout();
+    this.authService.signOut();
   }
 }

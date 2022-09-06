@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { AboutComponent } from './about/about.component'
-import { AccountComponent } from './account/account.component'
-import { ConfigComponent } from './account/components/config/config.component'
-import { LoginComponent } from './account/components/login/login.component'
-import { RegisterComponent } from './account/components/register/register.component'
-import { HomeComponent } from './home/home.component'
+import { AboutComponent } from './_views/about/about.component'
+import { AccountComponent } from './_views/account/account.component'
+import { ConfigComponent } from './_views/account/components/config/config.component'
+import { LoginComponent } from './_views/account/components/login/login.component'
+import { RegisterComponent } from './_views/account/components/register/register.component'
+import { HomeComponent } from './_views/home/home.component'
 
 const routes: Routes = [
   {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { StatusService } from './services/status/status.service'
+import { StatusService } from './_services/status/status.service'
 
 @Component({
   selector: 'app-root',
