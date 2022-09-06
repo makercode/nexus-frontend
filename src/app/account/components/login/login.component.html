@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="container">
+  <div class="form-register mt-6 mb-6">
+    <div class="app-content">
+      <form (ngSubmit)="onSignin(formLogin)" #formLogin="ngForm">
+        <mat-form-field class="full-width">
+          <!--<label for ="email">Mail</label>-->
+          <input matInput placeholder="Email" type="email" id="email" name="email" ngModel required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <!--<label for ="password">Password</label>-->
+          <input matInput placeholder="Password" type="password" id="password" name="password" ngModel required>
+        </mat-form-field>
+
+        <div class="action">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!formLogin.valid">Login</button>
+          <button mat-raised-button color="warn" (click)="onLogOut()" type="button">Logout</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
