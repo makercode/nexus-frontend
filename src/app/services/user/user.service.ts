@@ -7,7 +7,7 @@ import { AlertHelper } from '../../shared/alert/alert.helper';
 @Injectable()
 export class UserService {
 
-  constructor(private alertService: AlertService) {
+  constructor(private alertHelper: AlertHelper) {
   }
 
   saveUserInfo(uid, name, email
