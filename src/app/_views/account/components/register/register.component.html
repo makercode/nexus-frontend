@@ -1,7 +1,65 @@
 <div class="container">
-  <div class="form-register mt-6 mb-6">
-    <form action="/">
-      form
-    </form>
+  <div class="auth mt-6 mb-6">
+    
+    <div class="auth-email-password mb-4">
+      <h3 class="h4 mb-2">
+        Registrate con contraseña
+      </h3>
+      <form class="mb-3" [formGroup]="registerForm">
+
+        <div class="mb-2">
+          <mat-form-field appearance="legacy" class="mr-1">
+            <mat-label for="username">Email</mat-label>
+            <input matInput type="email" id="username" placeholder="Username" formControlName="username">
+            <mat-hint>
+              Nos comunicaremos aquí.
+            </mat-hint>
+            <mat-error>
+              <span *ngIf="username.errors?.['required']">
+                No hay email.
+              </span>
+              <span *ngIf="username.errors?.['email']">
+                No es un email.
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="mb-3">
+          <mat-form-field appearance="legacy" class="mr-1">
+            <mat-label for="password">Password</mat-label>
+            <input matInput type="password" id="password" placeholder="Password" formControlName="password">
+            <mat-hint>
+              Contraseña
+              {{password.valid}}
+            </mat-hint>
+            <mat-error>
+              <span *ngIf="password.errors?.['required']">
+                No hay contraseña.
+              </span>
+              <span *ngIf="password.errors?.['minlength']">
+                No tiene suficientes carácteres.
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="d-block">
+          <button [disabled]="registerForm.invalid" mat-raised-button color="primary" class="btn sm" (click)="signUp(username.value, password.value)">
+            <span>Registrarme</span> 
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="auth-one-step">
+      <h3 class="h4 mb-2">
+        Registrate desde terceros
+      </h3>
+      <button mat-stroked-button class="btn sm googleBtn" (click)="googleAuth()">
+        Gmail
+      </button>
+    </div>
+
   </div>
 </div>
