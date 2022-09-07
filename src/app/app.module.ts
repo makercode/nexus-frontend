@@ -12,12 +12,15 @@ import { AppRoutingModule } from './app-routing.module'
 import { HomeComponent } from './_views/home/home.component';
 import { AccountComponent } from './_views/account/account.component';
 import { AboutComponent } from './_views/about/about.component';
-import { RegisterComponent } from './_views/account/_components/register/register.component';
-import { LoginComponent } from './_views/account/_components/login/login.component';
-import { ConfigComponent } from './_views/account/_components/config/config.component';
+import { RegisterComponent } from './_views/account/_views/register/register.component';
+import { LoginComponent } from './_views/account/_views/login/login.component';
+import { ConfigComponent } from './_views/account/_views/config/config.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { HeaderComponent } from './_components/header/header.component';
-import { RecoverComponent } from './_views/account/_components/recover/recover.component';
+import { RecoverComponent } from './_views/account/_views/recover/recover.component';
+
+// Components
+import { PasswordCheckerComponent } from './_views/account/_views/register/_components/password-checker/password-checker.component';
 
 // Angular material
 import { MatToolbarModule,  } from '@angular/material/toolbar';
@@ -55,7 +58,8 @@ import {
     ConfigComponent,
     FooterComponent,
     HeaderComponent,
-    RecoverComponent
+    RecoverComponent,
+    PasswordCheckerComponent
   ],
   imports: [
     BrowserModule,
