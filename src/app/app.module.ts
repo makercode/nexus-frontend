@@ -12,12 +12,12 @@ import { AppRoutingModule } from './app-routing.module'
 import { HomeComponent } from './_views/home/home.component';
 import { AccountComponent } from './_views/account/account.component';
 import { AboutComponent } from './_views/about/about.component';
-import { RegisterComponent } from './_views/account/components/register/register.component';
-import { LoginComponent } from './_views/account/components/login/login.component';
-import { ConfigComponent } from './_views/account/components/config/config.component';
+import { RegisterComponent } from './_views/account/_components/register/register.component';
+import { LoginComponent } from './_views/account/_components/login/login.component';
+import { ConfigComponent } from './_views/account/_components/config/config.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { HeaderComponent } from './_components/header/header.component';
-import { RecoverComponent } from './_views/account/recover/recover.component';
+import { RecoverComponent } from './_views/account/_components/recover/recover.component';
 
 // Angular material
 import { MatToolbarModule,  } from '@angular/material/toolbar';
