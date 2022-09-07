@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { AuthService } from '../../../../_services';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertHelper } from './../../../../shared/alert/alert.helper';
 
 @Component({
@@ -10,14 +10,31 @@ import { AlertHelper } from './../../../../shared/alert/alert.helper';
 })
 export class LoginComponent implements OnInit {
 
+  loginForm: FormGroup = new FormGroup({
+    username: new FormControl( '', [
+      Validators.required,
+      Validators.email,
+    ]),
+    password: new FormControl( '', [
+      Validators.required,
+      Validators.minLength(9)
+    ]),
+    
+  }/*,{ validators: identityRevealedValidator }*/);
+
   constructor(
     public authService: AuthService,
     // private alertService: AlertService
   ) {}
 
-  ngOnInit() {}
+  get username() { return this.loginForm.get('username')!; }
+  get password() { return this.loginForm.get('password')!; }
 
-  signIn(username: string, userpassword: string) {
+
+  ngOnInit() {
+  }
+
+  signIn( username: string, userpassword: string ) {
     this.authService.signIn( username, userpassword );
   }
 

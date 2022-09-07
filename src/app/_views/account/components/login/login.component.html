@@ -1,25 +1,39 @@
 <div class="container">
   <div class="auth mt-6 mb-6">
     
-    <div class="auth-email-password mb-4">
+    <form class="auth-email-password mb-4" [formGroup]="loginForm">
       <h3 class="h4 mb-2">
         Ingresa con contraseña
       </h3>
       <div class="mb-3">
         <mat-form-field appearance="legacy" class="mr-1">
-          <mat-label for="username">Username</mat-label>
-          <input matInput type="email" id="username" placeholder="Username" #userName required>
-          <mat-hint>Obligatorio*</mat-hint>
+          <mat-label for="username">Email</mat-label>
+          <input matInput type="email" id="username" placeholder="Username" formControlName="username" required>
+          <mat-error>
+            <span *ngIf="username.errors?.['required']">
+              No hay email.
+            </span>
+            <span *ngIf="username.errors?.['email']">
+              No es un email.
+            </span>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy" class="mr-1">
           <mat-label for="password">Password</mat-label>
-          <input matInput type="password" id="password" placeholder="Password" #userPassword required>
-          <mat-hint>Obligatorio*</mat-hint>
+          <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
+          <mat-error>
+            <span *ngIf="password.errors?.['required']">
+              No hay contraseña.
+            </span>
+            <span *ngIf="password.errors?.['minlength']">
+              No tiene suficientes carácteres.
+            </span>
+          </mat-error>
         </mat-form-field>
 
         <div class="d-inline-block">
-          <button mat-raised-button color="primary" class="btn sm" (click)="signIn(userName.value, userPassword.value)">
+          <button [disabled]="loginForm.invalid" mat-raised-button color="primary" class="btn sm" (click)="signIn(username.value, password.value)">
             <span>Ingresar</span> 
             <mat-icon>arrow_right_alt</mat-icon>
           </button>
@@ -31,7 +45,7 @@
         </p>
         <button mat-stroked-button color="primary" routerLink="/cuenta/recupera">Recupera tu cuenta</button>
       </div>
-    </div>
+    </form>
 
     <div class="auth-one-step">
       <h3 class="h4 mb-2">
