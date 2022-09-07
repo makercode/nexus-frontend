@@ -21,21 +21,19 @@ export class PasswordCheckerComponent implements OnChanges {
   bar0: string = ''
   bar1: string = ''
   bar2: string = ''
-  bar3: string = ''
   msg:  string = ''
  
-  private colors = ['darkred', 'orangered', 'orange', 'yellowgreen']
+  private colors = ['darkred', 'orange', 'yellowgreen']
 
   private static checkStrength(password: string) {
     let force = 0
     const regex = /[$-/:-?{-~!"^_@`\[\]]/g
 
     const lowerLetters = /[a-z]+/.test(password)
-    const upperLetters = /[A-Z]+/.test(password)
     const numbers = /[0-9]+/.test(password)
     const symbols = regex.test(password)
 
-    const flags = [lowerLetters, upperLetters, numbers, symbols]
+    const flags = [lowerLetters, numbers, symbols]
 
     let passedMatches = 0
     for (const flag of flags) {
@@ -52,7 +50,6 @@ export class PasswordCheckerComponent implements OnChanges {
     force = passedMatches === 1 ? Math.min(force, 10) : force
     force = passedMatches === 2 ? Math.min(force, 20) : force
     force = passedMatches === 3 ? Math.min(force, 30) : force
-    force = passedMatches === 4 ? Math.min(force, 40) : force
 
     return force;
   }
@@ -67,21 +64,18 @@ export class PasswordCheckerComponent implements OnChanges {
       this.setBarColors(c.idx, c.color)
 
       const pwdStrength = PasswordCheckerComponent.checkStrength(password)
-      pwdStrength === 40
+      pwdStrength === 30
         ? this.passwordStrength.emit(true)
         : this.passwordStrength.emit(false)
 
       switch (c.idx) {
         case 1:
-          this.msg = 'Pésima'
-          break;
-        case 2:
           this.msg = 'Mala'
           break;
-        case 3:
+        case 2:
           this.msg = 'Regular'
           break;
-        case 4:
+        case 3:
           this.msg = 'Buena'
           break;
       }
@@ -99,8 +93,6 @@ export class PasswordCheckerComponent implements OnChanges {
       idx = 1
     } else if ( strength <= 30 ) {
       idx = 2
-    } else if ( strength <= 40 ) {
-      idx = 3
     } else {
       idx = 4
     }
@@ -120,9 +112,6 @@ export class PasswordCheckerComponent implements OnChanges {
       }
       if( n == 2 ) {
         this.bar2 = color
-      }
-      if( n == 3 ) {
-        this.bar3 = color
       }
     }
   }
