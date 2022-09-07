@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from '../../../../_services';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../../../../_services';
 import { AlertHelper } from './../../../../shared/alert/alert.helper';
 
 @Component({
@@ -10,29 +10,20 @@ import { AlertHelper } from './../../../../shared/alert/alert.helper';
 })
 export class LoginComponent implements OnInit {
 
-  @Input()
-  // loading = false;
-  public errorMsg = '';
-  public isAuth = false;
-  public token:any;
-
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     // private alertService: AlertService
   ) {}
 
   ngOnInit() {}
 
-  onSignin(form: NgForm) {
-    // this.loading = true
-    const email = form.value.email
-    const password = form.value.password
-    let authResponse = this.authService.signIn(email, password)
-    console.log("auth try")
-    console.log(authResponse)
+  signIn(username: string, userpassword: string) {
+    this.authService.signIn( username, userpassword );
   }
 
-  onLogOut() {
-    this.authService.signOut();
+  googleAuth() {
+    this.authService.googleAuth();
   }
+  
+
 }
