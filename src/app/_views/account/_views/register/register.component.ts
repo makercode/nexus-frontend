@@ -11,6 +11,7 @@ export class RegisterComponent implements OnInit {
 
   level: string = 'weak'
   isValidPassword: boolean = false
+  hidePassword: boolean = true
 
   constructor(
     public authService: AuthService,
