@@ -8,7 +8,7 @@
       <div class="mb-3">
         <mat-form-field appearance="legacy" class="mr-1">
           <mat-label for="username">Email</mat-label>
-          <input matInput type="email" id="username" placeholder="Username" formControlName="username" required>
+          <input matInput type="email" id="username" placeholder="Username" formControlName="username">
           <mat-error>
             <span *ngIf="username.errors?.['required']">
               No hay email.
@@ -21,7 +21,7 @@
 
         <mat-form-field appearance="legacy" class="mr-1">
           <mat-label for="password">Password</mat-label>
-          <input matInput type="password" id="password" placeholder="Password" formControlName="password" required>
+          <input matInput type="password" id="password" placeholder="Password" formControlName="password">
           <mat-error>
             <span *ngIf="password.errors?.['required']">
               No hay contraseña.
@@ -51,7 +51,7 @@
       <h3 class="h4 mb-2">
         Ingresa desde terceros
       </h3>
-      <button mat-raised-button color="primary" class="btn sm googleBtn" (click)="googleAuth()">
+      <button mat-stroked-button class="btn sm googleBtn" (click)="googleAuth()">
         Gmail
       </button>
     </div>
