@@ -9,15 +9,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  level = 'weak'
+  level: string = 'weak'
+  isValidPassword: boolean = false
 
   constructor(
     public authService: AuthService,
     // private alertService: AlertService
   ) {}
 
-  get username() { return this.registerForm.get('username')!; }
-  get password() { return this.registerForm.get('password')!; }
+  get username() { return this.registerForm.get('username')! }
+  get password() { return this.registerForm.get('password')! }
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl( '', [
@@ -31,30 +32,19 @@ export class RegisterComponent implements OnInit {
     
   });
  
-  alphaNumberOnly (e:any) {  // Accept only alpha numerics, not special characters 
-    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
-    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (regex.test(str)) {
-        return true;
-    }
-
-    e.preventDefault();
-    return false;
-  }
-
-  onPaste(e:any) {
-    e.preventDefault();
-    return false;
+  
+  passwordValid(event:any) {
+    this.isValidPassword = event
   }
 
   ngOnInit() {
   }
 
   signUp( username: string, userpassword: string ) {
-    this.authService.signUp( username, userpassword );
+    this.authService.signUp( username, userpassword )
   }
 
   googleAuth() {
-    this.authService.googleAuth();
+    this.authService.googleAuth()
   }
 }

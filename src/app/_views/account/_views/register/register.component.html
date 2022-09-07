@@ -12,7 +12,7 @@
             <mat-label for="username">Email</mat-label>
             <input matInput type="email" id="username" placeholder="Username" formControlName="username">
             <mat-hint>
-              Nos comunicaremos aquí.
+              Aqui te llegarán los emails.
             </mat-hint>
             <mat-error>
               <span *ngIf="username.errors?.['required']">
@@ -25,13 +25,12 @@
           </mat-form-field>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-2">
           <mat-form-field appearance="legacy" class="mr-1">
             <mat-label for="password">Password</mat-label>
             <input matInput type="password" id="password" placeholder="Password" formControlName="password">
             <mat-hint>
-              Contraseña
-              {{password.valid}}
+              Usa Letras, números y simbolos.
             </mat-hint>
             <mat-error>
               <span *ngIf="password.errors?.['required']">
@@ -43,9 +42,13 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <app-password-checker
+          [passwordToVerify]="registerForm.value.password"
+          (passwordStrength)="passwordValid($event)"
+        ></app-password-checker>
 
         <div class="d-block">
-          <button [disabled]="registerForm.invalid" mat-raised-button color="primary" class="btn sm" (click)="signUp(username.value, password.value)">
+          <button [disabled]="registerForm.invalid || !this.isValidPassword" mat-raised-button color="primary" class="btn sm" (click)="signUp(username.value, password.value)">
             <span>Registrarme</span> 
           </button>
         </div>
