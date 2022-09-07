@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { StatusService } from './_services/status/status.service'
 
 @Component({
   selector: 'app-root',
@@ -10,14 +9,8 @@ export class AppComponent implements OnInit {
   title = 'node-express-angular'
   status = 'DOWN'
 
-  constructor(private statusService: StatusService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.statusService
-      .getStatus()
-      .then((result: any) => {
-        this.status = result
-        console.log(result)
-      });
   }
 }
