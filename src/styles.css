@@ -9,15 +9,28 @@ html, body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-size: 16px;;
+  font-size: 16px;
 }
+@media (min-width: 1240px) {
+  html, body {
+    font-size: 14px;
+  }
+}
+
 
 .container {
   width: 1024px;
-  max-width: 100%;
+  max-width: 92%;
   margin: auto;
   display: flex;
 }
+
+@media (min-width: 1240px) {
+  .container {
+    max-width: 96%;
+  }
+}
+
 
 small {
   font-size: .5em;
@@ -400,16 +413,18 @@ small {
   flex-direction: column;
 }
 
+
+
 .h1 {
-  font-size: 6em!important;
-  line-height: 1.15em!important;
-}
-.h2 {
   font-size: 4em!important;
   line-height: 1.15em!important;
 }
+.h2 {
+  font-size: 3em!important;
+  line-height: 1.15em!important;
+}
 .h3 {
-  font-size: 2.6em!important;
+  font-size: 2.2em!important;
   line-height: 1.15em!important;
 }
 .h4 {
@@ -419,6 +434,28 @@ small {
 .h5 {
   font-size: 1.2em!important;
   line-height: 1.15em!important;
+}
+@media (min-width: 1240px) {
+  .h1 {
+    font-size: 6em!important;
+    line-height: 1.15em!important;
+  }
+  .h2 {
+    font-size: 4em!important;
+    line-height: 1.15em!important;
+  }
+  .h3 {
+    font-size: 2.6em!important;
+    line-height: 1.15em!important;
+  }
+  .h4 {
+    font-size: 1.8em!important;
+    line-height: 1.15em!important;
+  }
+  .h5 {
+    font-size: 1.2em!important;
+    line-height: 1.15em!important;
+  }
 }
 
 .btn {
