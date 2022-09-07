@@ -25,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Firebase
 import { AngularFireModule } from '@angular/fire/compat';
@@ -69,6 +70,7 @@ import {
     MatIconModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ReactiveFormsModule,
 
     // Angular fire
     AngularFirestoreModule,
