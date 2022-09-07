@@ -18,7 +18,7 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -30,7 +30,6 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
-
   }
 
   // Sign in with email/password
@@ -130,7 +129,7 @@ export class AuthService {
       merge: true,
     });
   }
-  
+
   // Sign out
   signOut() {
     return this.afAuth.signOut().then(() => {
