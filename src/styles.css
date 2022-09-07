@@ -24,11 +24,14 @@ html, body {
   margin: auto;
   display: flex;
 }
-
 @media (min-width: 1240px) {
   .container {
     max-width: 96%;
   }
+}
+
+.w-100 {
+  width: 100%;
 }
 
 
