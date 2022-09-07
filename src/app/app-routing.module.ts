@@ -4,6 +4,7 @@ import { AboutComponent } from './_views/about/about.component'
 import { AccountComponent } from './_views/account/account.component'
 import { ConfigComponent } from './_views/account/components/config/config.component'
 import { LoginComponent } from './_views/account/components/login/login.component'
+import { RecoverComponent } from './_views/account/components/recover/recover.component'
 import { RegisterComponent } from './_views/account/components/register/register.component'
 import { HomeComponent } from './_views/home/home.component'
 
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'configuracion', 
         component: ConfigComponent
+      },
+      {
+        path: 'recupera', 
+        component: RecoverComponent
       },
     ]
   },

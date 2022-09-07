@@ -42,6 +42,7 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
+import { RecoverComponent } from './_views/account/components/recover/recover.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {
     LoginComponent,
     ConfigComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    RecoverComponent
   ],
   imports: [
     BrowserModule,
