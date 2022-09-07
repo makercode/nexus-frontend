@@ -29,7 +29,7 @@
           <mat-form-field appearance="legacy" class="mr-1">
             <mat-label for="password">Password</mat-label>
             <input matInput type="password" id="password" placeholder="Password" formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon matSuffix class="password-icon" (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             <mat-hint>
               Usa Letras, números y simbolos.
             </mat-hint>
