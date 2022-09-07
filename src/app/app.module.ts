@@ -17,6 +17,7 @@ import { LoginComponent } from './_views/account/components/login/login.componen
 import { ConfigComponent } from './_views/account/components/config/config.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { HeaderComponent } from './_components/header/header.component';
+import { RecoverComponent } from './_views/account/recover/recover.component';
 
 // Angular material
 import { MatToolbarModule,  } from '@angular/material/toolbar';
@@ -30,7 +31,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Angular Firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
 import { provideAuth,getAuth } from '@angular/fire/auth'
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -42,7 +42,6 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
-import { RecoverComponent } from './_views/account/components/recover/recover.component';
 
 
 @NgModule({
