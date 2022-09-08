@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 // Angular Firebase
 import { AngularFireModule } from '@angular/fire/compat';
@@ -78,6 +79,7 @@ import { VerifyComponent } from './_views/account/_views/verify/verify.component
     BrowserAnimationsModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatCardModule,
 
     // Angular fire
     AngularFirestoreModule,

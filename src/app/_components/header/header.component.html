@@ -1,17 +1,31 @@
 <header class="header">
   <div class="header-menu">
-    <mat-toolbar class="px-0">
+    <div class="px-0">
       <div class="container">
-        <h1 class="logo">
-          <a routerLink="/">
-            <span class="">Anexalo</span>
-            <small class="">.com</small>
-          </a>
-        </h1>
-        <button mat-raised-button color="primary" class="ml-auto btn sm" routerLink="/cuenta/ingresa">
-          Ingresa
-        </button>
+        <div class="d-flex py-1 w-100">
+          <h1 class="logo">
+            <a routerLink="/">
+              <span class="">Anexalo</span>
+              <small class="">.com</small>
+            </a>
+          </h1>
+          <button *ngIf="!authService.userData" mat-raised-button color="primary" class="ml-auto btn sm" routerLink="/cuenta/ingresa">
+            Ingresa
+          </button>
+          <mat-card *ngIf="authService.userData" class="ml-auto">
+            <mat-card-header>
+              <div mat-card-avatar>
+                <mat-icon class="h3">account_circle</mat-icon>
+              </div>
+              <mat-card-title class="my-0 h6">{{authService.userData.multiFactor.user.email}}</mat-card-title>
+              <mat-card-subtitle class="my-0 d-flex">
+                <a routerLink="/cuenta/verificame">Verificar mi email</a>
+                <a routerLink="/cuenta/salir" class="ml-auto">Salir</a>
+              </mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
       </div>
-    </mat-toolbar>
+    </div>
   </div>
 </header>
