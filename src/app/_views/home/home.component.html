@@ -1,28 +1,49 @@
 <div class="container">
   <div class="home-content mt-6 mb-6">
-    <h1 class="h1 mb-3 px-1">
-      <span>
-        Conectado
-        <br>
-        <span>vendes </span>
-        <mark class="highlight">mejor</mark>
-      </span>
-    </h1>
 
-    <h3 class="h3 mb-3 px-1">
-      Muestra tus productos por todo internet <br>
-      en pocos minutos.
-    </h3>
+    <div class="content-guest" *ngIf="!authService.userData">
+      <h1 class="h1 mb-3">
+        <span>
+          Conectado
+          <br>
+          <span>vendes </span>
+          <mark class="highlight">mejor</mark>
+        </span>
+      </h1>
+      <h3 class="h3 mb-3">
+        Muestra tus productos por todo internet <br>
+        en pocos minutos.
+      </h3>
+    </div>
+
+    <div class="content-customer" *ngIf="authService.userData">
+      <h1 class="h1 mb-3">
+        <span>
+          Aprende como <br> 
+          <mark class="highlight">conectarte</mark>
+        </span>
+      </h1>
+    </div>
+
 
     <section class="cta">
       <div class="cta">
         <div class="cta-content row">
           <p class="my-auto mr-1 h5">
-            ¿Listo para ganar tiempo?
+            <span *ngIf="!authService.userData">
+              ¿Listo para ganar tiempo?
+            </span>
+            <span *ngIf="authService.userData">
+              Empieza viendo este video
+            </span>
           </p>
-          <button mat-raised-button color="primary" class="btn md" routerLink="/cuenta/registrate">
+          <button *ngIf="!authService.userData" mat-raised-button color="primary" class="btn md" routerLink="/cuenta/registrate">
             Registrate
           </button>
+          <button *ngIf="authService.userData" mat-flat-button color="primary" class="btn md">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+
         </div>
       </div>
     </section>
