@@ -6,6 +6,7 @@ import { ConfigComponent } from './_views/account/_views/config/config.component
 import { LoginComponent } from './_views/account/_views/login/login.component'
 import { RecoverComponent } from './_views/account/_views/recover/recover.component'
 import { RegisterComponent } from './_views/account/_views/register/register.component'
+import { VerifyComponent } from './_views/account/_views/verify/verify.component'
 import { HomeComponent } from './_views/home/home.component'
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'recupera', 
         component: RecoverComponent
+      },
+      {
+        path: 'verificame', 
+        component: VerifyComponent
       },
     ]
   },

@@ -45,6 +45,7 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
+import { VerifyComponent } from './_views/account/_views/verify/verify.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {
     FooterComponent,
     HeaderComponent,
     RecoverComponent,
-    PasswordCheckerComponent
+    PasswordCheckerComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
