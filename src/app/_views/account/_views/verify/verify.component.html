@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="my-6">
+        <div class="authBlock" *ngIf="authService.userData as user">
+            <h3 class="h3"> Solo falta confirmar tu email </h3>
+            <div class="text-group mb-2">
+                <p class="text-center">Te enviamos un email a <strong>{{user.email}}</strong>.</p>
+                <p class="text-center">Revisa tu email e ingresa a el link para verificar </p>
+            </div>
+            
+            <!-- Calling SendVerificationMail() method using authService Api -->
+            <div class="formGroup ">
+                <button mat-raised-button type="button" color="primary" class="btn md" (click)="authService.sendVerificationMail()">
+                    <i class="fas fa-redo-alt"></i>
+                    Resend Verification Email
+                </button>
+            </div>
+        </div>
+        <div *ngIf="!authService.userData">
+            <p class="message">
+                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="authService.sendVerificationMail()">
+                    Ingresa
+                </button>
+                o
+                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="authService.sendVerificationMail()">
+                    Registrate
+                </button>
+            </p>
+        </div>
+    </div>
+</div>
+  
