@@ -32,13 +32,12 @@ export class RegisterComponent implements OnInit {
     ]),
     
   });
- 
+
+  ngOnInit() {
+  }
   
   passwordValid(event:any) {
     this.isValidPassword = event
-  }
-
-  ngOnInit() {
   }
 
   signUp( username: string, userpassword: string ) {
