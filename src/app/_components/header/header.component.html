@@ -12,12 +12,12 @@
           <button *ngIf="!authService.userData" mat-raised-button color="primary" class="ml-auto btn sm" routerLink="/cuenta/ingresa">
             Ingresa
           </button>
-          <mat-card *ngIf="authService.userData" class="ml-auto">
+          <mat-card *ngIf="authService.userData" class="ml-auto mat-elevation-z0 nx-rounded-content nx-bordered-content">
             <mat-card-header>
               <div mat-card-avatar>
                 <mat-icon class="h3">account_circle</mat-icon>
               </div>
-              <mat-card-title class="my-0 h6">{{authService.userData.multiFactor.user.email}}</mat-card-title>
+              <mat-card-title class="h6 title-email">{{authService.userData.multiFactor.user.email}}</mat-card-title>
               <mat-card-subtitle class="my-0 d-flex">
                 <a routerLink="/cuenta/verificame">Verificar mi email</a>
                 <a routerLink="/cuenta/salir" class="ml-auto">Salir</a>

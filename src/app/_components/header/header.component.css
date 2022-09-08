@@ -10,3 +10,6 @@
   text-decoration: none;
   color: inherit;
 }
+.mat-card-header .mat-card-title.title-email {
+  margin-bottom: 4px;
+}

@@ -487,3 +487,14 @@ small {
   line-height: 1em;
 }
 
+
+
+
+
+/* UI */
+.nx-bordered-content {
+  border: 1px solid #ddd!important;
+}
+.nx-rounded-content {
+  border-radius: 36px!important;
+}
