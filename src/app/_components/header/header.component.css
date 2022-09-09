@@ -10,6 +10,10 @@
   text-decoration: none;
   color: inherit;
 }
+.icon-avatar {
+  font-size: 46px;
+}
 .mat-card-header .mat-card-title.title-email {
+  font-size: 18px;
   margin-bottom: 4px;
 }

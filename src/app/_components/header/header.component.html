@@ -3,19 +3,30 @@
     <div class="px-0">
       <div class="container">
         <div class="d-flex py-1 w-100">
+          
           <h1 class="logo">
             <a routerLink="/">
               <span class="">Anexalo</span>
               <small class="">.com</small>
             </a>
           </h1>
-          <button *ngIf="!authService.userData" mat-raised-button color="primary" class="ml-auto btn sm" routerLink="/cuenta/ingresa">
-            Ingresa
-          </button>
+          
+          <div *ngIf="!authService.userData" class="ml-auto nx-rounded-content nx-bordered-content p-1">
+            <button mat-flat-button class="ml-auto btn sm" routerLink="/">
+              Inicio
+            </button>
+            <button mat-flat-button class="ml-auto btn sm" routerLink="/acerca">
+              Acerca
+            </button>
+            <button mat-raised-button color="primary" class="ml-1 btn sm" routerLink="/cuenta/ingresa">
+              Cuenta
+            </button>
+          </div>
+
           <mat-card *ngIf="authService.userData" class="ml-auto mat-elevation-z0 nx-rounded-content nx-bordered-content">
             <mat-card-header>
               <div mat-card-avatar>
-                <mat-icon class="h3">account_circle</mat-icon>
+                <mat-icon class="icon-avatar">account_circle</mat-icon>
               </div>
               <mat-card-title class="h6 title-email">{{authService.userData.multiFactor.user.email}}</mat-card-title>
               <mat-card-subtitle class="my-0 d-flex">
