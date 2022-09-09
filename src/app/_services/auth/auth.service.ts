@@ -19,7 +19,7 @@ export class AuthService {
   public userObserver: Subject<any> = new BehaviorSubject( {} );
 
   constructor(
-    public afs: AngularFirestore,
+    public afStore: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone
@@ -72,7 +72,7 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.sendVerificationMail();
+        this.sendVerificationEmail();
         this.setUserData(result.user);
       })
       .catch((error) => {
@@ -81,11 +81,11 @@ export class AuthService {
   }
 
   // Send email verfificaiton when new user sign up
-  sendVerificationMail() {
+  sendVerificationEmail() {
     return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
+      .then((user: any) => user.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['cuenta/verificame']);
       });
   }
 
@@ -131,7 +131,7 @@ export class AuthService {
   sign up with username/password and sign in with social auth
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   setUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${user.uid}`
     );
     const userData: IUser = {
