@@ -8,9 +8,26 @@ import { AuthService } from 'src/app/_services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  public user: any;
+
+  constructor(public authService: AuthService) {
+    this.observeUser()
+  }
 
   ngOnInit(): void {
+  }
+
+  signOut() {
+    this.authService.signOut()
+  }
+
+  observeUser(){
+    this.authService.userObserver.subscribe(
+      (userRes) => {
+        this.user = JSON.parse(userRes)
+        console.log(userRes)
+      }
+    )
   }
 
 }

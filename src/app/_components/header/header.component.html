@@ -11,7 +11,7 @@
             </a>
           </h1>
           
-          <div *ngIf="!authService.userData" class="ml-auto nx-rounded-content nx-bordered-content p-1">
+          <div *ngIf="!user" class="ml-auto nx-rounded-content nx-bordered-content p-1">
             <button mat-flat-button class="ml-auto btn sm" routerLink="/">
               Inicio
             </button>
@@ -23,15 +23,19 @@
             </button>
           </div>
 
-          <mat-card *ngIf="authService.userData" class="ml-auto mat-elevation-z0 nx-rounded-content nx-bordered-content">
+          <mat-card *ngIf="user" class="ml-auto mat-elevation-z0 nx-rounded-content nx-bordered-content">
             <mat-card-header>
               <div mat-card-avatar>
                 <mat-icon class="icon-avatar">account_circle</mat-icon>
               </div>
-              <mat-card-title class="h6 title-email">{{authService.userData.multiFactor.user.email}}</mat-card-title>
+              <mat-card-title class="h6 title-email">{{ user.email }}</mat-card-title>
               <mat-card-subtitle class="my-0 d-flex">
-                <a routerLink="/cuenta/verificame">Verificar mi email</a>
-                <a routerLink="/cuenta/salir" class="ml-auto">Salir</a>
+                <button mat-button color="primary" routerLink="/cuenta/verificame" class="btn link">
+                  Verificar mi email
+                </button>
+                <button mat-button color="primary" (click)="signOut()" class="btn link ml-auto">
+                  Salir
+                </button>
               </mat-card-subtitle>
             </mat-card-header>
           </mat-card>

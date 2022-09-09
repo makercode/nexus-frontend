@@ -532,6 +532,11 @@ small {
   border-radius: 48px;
   line-height: 1em;
 }
+.btn.link {
+  line-height: 1em;
+  padding: 3px 2px!important;
+  min-width: auto;
+}
 
 
 

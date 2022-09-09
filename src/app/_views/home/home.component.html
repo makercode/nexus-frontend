@@ -1,7 +1,7 @@
 <div class="container">
   <div class="home-content mt-6 mb-6">
 
-    <div class="content-guest" *ngIf="!authService.userData">
+    <div class="content-guest" *ngIf="!user">
       <h1 class="h1 mb-3">
         <span>
           Conectado
@@ -16,7 +16,7 @@
       </h3>
     </div>
 
-    <div class="content-user" *ngIf="authService.userData">
+    <div class="content-user" *ngIf="user">
       <h1 class="h1 mb-3">
         <span>
           Aprende como <br> 
@@ -30,17 +30,17 @@
       <div class="cta">
         <div class="cta-content row">
           <p class="my-auto mr-1 h5">
-            <span *ngIf="!authService.userData">
+            <span *ngIf="!user">
               ¿Listo para ganar tiempo?
             </span>
-            <span *ngIf="authService.userData">
+            <span *ngIf="user">
               Empieza viendo este video
             </span>
           </p>
-          <button *ngIf="!authService.userData" mat-raised-button color="primary" class="btn md" routerLink="/cuenta/registrate">
+          <button *ngIf="!user" mat-raised-button color="primary" class="btn md" routerLink="/cuenta/registrate">
             Registrate
           </button>
-          <button *ngIf="authService.userData" mat-flat-button color="primary" class="btn md">
+          <button *ngIf="user" mat-flat-button color="primary" class="btn md">
             <mat-icon>play_arrow</mat-icon>
           </button>
 

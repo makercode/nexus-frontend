@@ -1,6 +1,6 @@
 <div class="container">
     <div class="verification my-6">
-        <div class="verification-info" *ngIf="authService.userData as user">
+        <div class="verification-info" *ngIf="user">
             <h3 class="h3"> Solo falta confirmar tu email </h3>
             <div class="text-group mb-2">
                 <p class="text-center">Te enviamos un email a <strong>{{user.email}}</strong>.</p>
@@ -15,7 +15,7 @@
                 </button>
             </div>
         </div>
-        <div *ngIf="!authService.userData">
+        <div *ngIf="!user">
             <p class="message">
                 <button mat-stroked-button type="button" class="btn btnPrimary" (click)="authService.sendVerificationMail()">
                     Ingresa

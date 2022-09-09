@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
+import { Subject, BehaviorSubject  } from "rxjs";
+
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -11,9 +13,13 @@ import {
 
 import { IUser } from 'src/app/_interfaces/user.interface';
 
+
+
 @Injectable()
 export class AuthService {
-  userData: any;
+
+  public userObserver: Subject<any> = new BehaviorSubject( localStorage.getItem('user') );
+
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
@@ -23,13 +29,23 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         console.log(user)
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(user));
         JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
       }
+
+      this.userObserver.next( localStorage.getItem('user') );
+    });
+  }
+
+  // Sign out
+  signOut() {
+    return this.afAuth.signOut().then(() => {
+      localStorage.removeItem('user')
+
+      this.router.navigate(['cuenta/salir'])
     });
   }
 
@@ -131,12 +147,5 @@ export class AuthService {
     });
   }
 
-  // Sign out
-  signOut() {
-    return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
-    });
-  }
 
 }
