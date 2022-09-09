@@ -24,22 +24,20 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone
   ) {
-    this.afAuth.authState.subscribe( (user) => {
-      if (user) {
-        console.log(user)
-        localStorage.setItem('user', JSON.stringify(user));
+    this.afAuth.authState.subscribe( (afUser) => {
+      if (afUser) {
+        console.log(afUser)
+        localStorage.setItem('user', JSON.stringify(afUser));
         JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
       }
 
-      this.userObserver.next( user );
-
+      this.userObserver.next( afUser );
     });
     
   }
-
 
   // Sign out
   signOut() {
