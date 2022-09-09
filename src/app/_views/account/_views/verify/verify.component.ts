@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-verify',
@@ -8,7 +9,7 @@ import { AuthService } from 'src/app/_services';
 })
 export class VerifyComponent implements OnInit {
 
-  public user: any;
+  public user: User = {} as User;
 
   constructor(public authService: AuthService) {
     this.observeUser()
@@ -19,10 +20,10 @@ export class VerifyComponent implements OnInit {
   
   observeUser(){
     this.authService.userObserver.subscribe(
-      (userRes) => {
-        this.user = JSON.parse(userRes)
-        console.log(userRes)
+      (userResponse: User) => {
+        this.user = userResponse
       }
     )
   }
+
 }

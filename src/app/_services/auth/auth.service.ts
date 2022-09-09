@@ -13,12 +13,10 @@ import {
 
 import { IUser } from 'src/app/_interfaces/user.interface';
 
-
-
 @Injectable()
 export class AuthService {
 
-  public userObserver: Subject<any> = new BehaviorSubject( localStorage.getItem('user') );
+  public userObserver: Subject<any> = new BehaviorSubject( {} );
 
   constructor(
     public afs: AngularFirestore,
@@ -26,7 +24,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone
   ) {
-    this.afAuth.authState.subscribe((user) => {
+    this.afAuth.authState.subscribe( (user) => {
       if (user) {
         console.log(user)
         localStorage.setItem('user', JSON.stringify(user));
@@ -36,9 +34,12 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
 
-      this.userObserver.next( localStorage.getItem('user') );
+      this.userObserver.next( user );
+
     });
+    
   }
+
 
   // Sign out
   signOut() {
