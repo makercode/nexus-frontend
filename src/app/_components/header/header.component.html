@@ -30,7 +30,7 @@
               </div>
               <mat-card-title class="h6 title-email">{{ user.email }}</mat-card-title>
               <mat-card-subtitle class="my-0 d-flex">
-                <button mat-button color="primary" *ngIf="!user.emailVerified" routerLink="/cuenta/verificame" class="btn link">
+                <button mat-button color="primary" *ngIf="!user.emailVerified" (click)="sendVerificationEmail()" class="btn link">
                   Verificar mi email
                 </button>
                 <button mat-button color="primary" *ngIf="user.emailVerified" routerLink="/cuenta/dashboard" class="btn link">

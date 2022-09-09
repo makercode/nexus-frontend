@@ -9,7 +9,7 @@
             
             <!-- Calling SendVerificationMail() method using authService Api -->
             <div class="formGroup ">
-                <button mat-raised-button type="button" color="primary" class="btn md" (click)="authService.sendVerificationMail()">
+                <button mat-raised-button type="button" color="primary" class="btn md" (click)="sendVerificationEmail()">
                     <i class="fas fa-redo-alt"></i>
                     Reenviarme la verificación
                 </button>
@@ -17,11 +17,11 @@
         </div>
         <div *ngIf="!user">
             <p class="message">
-                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="authService.sendVerificationMail()">
+                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="sendVerificationEmail()">
                     Ingresa
                 </button>
                 o
-                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="authService.sendVerificationMail()">
+                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="sendVerificationEmail()">
                     Registrate
                 </button>
             </p>

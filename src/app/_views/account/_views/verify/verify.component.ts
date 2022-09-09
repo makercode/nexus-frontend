@@ -26,4 +26,9 @@ export class VerifyComponent implements OnInit {
     )
   }
 
+  sendVerificationEmail() {
+    console.log('boom!');
+    this.authService.sendVerificationEmail()
+  }
+
 }

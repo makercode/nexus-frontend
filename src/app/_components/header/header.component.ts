@@ -30,4 +30,9 @@ export class HeaderComponent implements OnInit {
     )
   }
 
+  sendVerificationEmail() {
+    console.log('boom!');
+    this.authService.sendVerificationEmail()
+  }
+
 }
