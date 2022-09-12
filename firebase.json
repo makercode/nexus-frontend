@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/nexus-frontend",
     "ignore": [
       "firebase.json",
       "**/.*",

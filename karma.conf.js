@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/abatarify-frontend'),
+      dir: require('path').join(__dirname, './coverage/nexus-frontend'),
       subdir: '.',
       reporters: [
         { type: 'html' },

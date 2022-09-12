@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "abatarify-frontend": {
+    "nexus-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/abatarify-frontend",
+            "outputPath": "dist/nexus-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "abatarify-frontend:build:production"
+              "browserTarget": "nexus-frontend:build:production"
             },
             "development": {
-              "browserTarget": "abatarify-frontend:build:development"
+              "browserTarget": "nexus-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "abatarify-frontend:build"
+            "browserTarget": "nexus-frontend:build"
           }
         },
         "test": {
@@ -104,5 +104,5 @@
       }
     }
   },
-  "defaultProject": "abatarify-frontend"
+  "defaultProject": "nexus-frontend"
 }
