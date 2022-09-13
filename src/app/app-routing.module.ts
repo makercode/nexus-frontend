@@ -9,6 +9,7 @@ import { RecoverComponent } from './_views/account/_views/recover/recover.compon
 import { RegisterComponent } from './_views/account/_views/register/register.component'
 import { SignoutComponent } from './_views/account/_views/signout/signout.component'
 import { VerifyComponent } from './_views/account/_views/verify/verify.component'
+import { DashboardComponent } from './_views/dashboard/dashboard.component'
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'salir', 
         component: SignoutComponent
+      },
+      {
+        path: 'dashboard', 
+        component: DashboardComponent
       },
     ]
   },
