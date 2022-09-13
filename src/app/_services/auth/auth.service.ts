@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
-import * as auth from 'firebase/auth';
+import { GoogleAuthProvider } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Subject, BehaviorSubject  } from "rxjs";
 
@@ -17,6 +17,7 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone,
     public userService: UserService,
+    public googleAuthProvider: GoogleAuthProvider,
   ) {
     this.afAuth.authState.subscribe( (afUser) => {
       if (afUser) {
@@ -104,7 +105,7 @@ export class AuthService {
 
   // Sign in with Google
   googleAuth() {
-    return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+    return this.authLogin(this.googleAuthProvider).then((res: any) => {
       this.router.navigate(['dashboard']);
     });
   }
