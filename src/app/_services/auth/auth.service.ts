@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { GoogleAuthProvider } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Subject, BehaviorSubject  } from "rxjs";
+import { Subject, BehaviorSubject  } from 'rxjs';
 
 import { UserService } from '../user/user.service';
 
