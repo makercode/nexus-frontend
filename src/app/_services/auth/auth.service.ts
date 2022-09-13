@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Subject, BehaviorSubject  } from 'rxjs';
+import { first } from 'rxjs/operators'
 
 import { UserService } from '../user/user.service';
 
@@ -18,15 +19,13 @@ export class AuthService {
     public ngZone: NgZone,
     public userService: UserService,
   ) {
-    this.getUserInfo()
+    this.getUser()
   }
 
-  async getUserInfo() {
+  async getUser() {
     this.afAuth.authState.subscribe( (afUser) => {
       console.log('getUserInfo afAuth.authState.subscribe')
       if (afUser) {
-        console.log(afUser, afUser!.emailVerified)
-        console.log(afUser)
         localStorage.setItem('user', JSON.stringify(afUser));
       } else {
         localStorage.setItem('user', 'null');
@@ -80,17 +79,17 @@ export class AuthService {
   }
 
   async sendVerificationEmail() {
-    const userInfo = await this.getUserInfo()
-    const isVerified = JSON.parse(localStorage.getItem('user')!).emailVerified;
-    console.log(isVerified);
-    if (!isVerified) {
-      return this.afAuth.currentUser
-        .then((user: any) => user.sendEmailVerification())
-        .then(() => {
-          this.router.navigate(['cuenta/verificame']);
-        });
+    const user = await this.afAuth.currentUser.then(
+      (user) => {
+        return user
+      }
+    )
+    if (user) {
+      user.sendEmailVerification()
+      this.router.navigate(['cuenta/verificame'])
+    } else {
+      console.log('error no posible')
     }
-    return false;
   }
   
   forgotPassword(passwordResetEmail: string) {
