@@ -14,9 +14,6 @@ export class UserService {
   ) {
   }
 
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   setUserData(uid: string,email:string,subdomain?:string,plan?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${uid}`

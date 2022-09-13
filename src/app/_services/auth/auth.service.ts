@@ -66,8 +66,7 @@ export class AuthService {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
+        /* Call the SendVerificaitonMail() firebase function */
         this.sendVerificationEmail();
         if( result.user && result.user.email ){
           this.userService.setUserData(result.user.uid,result.user.email)
@@ -78,7 +77,6 @@ export class AuthService {
       });
   }
 
-  // Send email verfificaiton when new user sign up
   sendVerificationEmail() {
     return this.afAuth.currentUser
       .then((user: any) => user.sendEmailVerification())
@@ -86,8 +84,7 @@ export class AuthService {
         this.router.navigate(['cuenta/verificame']);
       });
   }
-
-  // Reset Forggot password
+  
   forgotPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
