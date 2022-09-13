@@ -18,6 +18,11 @@ import { ConfigComponent } from './_views/account/_views/config/config.component
 import { FooterComponent } from './_components/footer/footer.component';
 import { HeaderComponent } from './_components/header/header.component';
 import { RecoverComponent } from './_views/account/_views/recover/recover.component';
+import { VerifyComponent } from './_views/account/_views/verify/verify.component';
+import { SignoutComponent } from './_views/account/_views/signout/signout.component';
+import { TermsAndConditionsComponent } from './_views/terms-and-conditions/terms-and-conditions.component';
+import { PoliticsAndPrivacyComponent } from './_views/politics-and-privacy/politics-and-privacy.component';
+import { DashboardComponent } from './_views/dashboard/dashboard.component';
 
 // Components
 import { PasswordCheckerComponent } from './_views/account/_views/register/_components/password-checker/password-checker.component';
@@ -46,8 +51,6 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
-import { VerifyComponent } from './_views/account/_views/verify/verify.component';
-import { SignoutComponent } from './_views/account/_views/signout/signout.component';
 
 
 @NgModule({
@@ -64,7 +67,10 @@ import { SignoutComponent } from './_views/account/_views/signout/signout.compon
     RecoverComponent,
     PasswordCheckerComponent,
     VerifyComponent,
-    SignoutComponent
+    SignoutComponent,
+    TermsAndConditionsComponent,
+    PoliticsAndPrivacyComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
