@@ -10,7 +10,7 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class AuthService {
 
-  public userObserver: Subject<any> = new BehaviorSubject( {} );
+  public userObserver: Subject<any> = new BehaviorSubject( {} )
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -18,26 +18,28 @@ export class AuthService {
     public ngZone: NgZone,
     public userService: UserService,
   ) {
+    this.getUserInfo()
+  }
+
+  async getUserInfo() {
     this.afAuth.authState.subscribe( (afUser) => {
+      console.log('getUserInfo afAuth.authState.subscribe')
       if (afUser) {
+        console.log(afUser, afUser!.emailVerified)
         console.log(afUser)
         localStorage.setItem('user', JSON.stringify(afUser));
-        JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
       }
-
+      // JSON.parse(localStorage.getItem('user')!);
       this.userObserver.next( afUser );
-    });
-    
+    })
   }
 
   // Sign out
   signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user')
-
       this.router.navigate(['cuenta/salir'])
     });
   }
@@ -77,12 +79,18 @@ export class AuthService {
       });
   }
 
-  sendVerificationEmail() {
-    return this.afAuth.currentUser
-      .then((user: any) => user.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['cuenta/verificame']);
-      });
+  async sendVerificationEmail() {
+    const userInfo = await this.getUserInfo()
+    const isVerified = JSON.parse(localStorage.getItem('user')!).emailVerified;
+    console.log(isVerified);
+    if (!isVerified) {
+      return this.afAuth.currentUser
+        .then((user: any) => user.sendEmailVerification())
+        .then(() => {
+          this.router.navigate(['cuenta/verificame']);
+        });
+    }
+    return false;
   }
   
   forgotPassword(passwordResetEmail: string) {
