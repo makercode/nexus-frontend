@@ -1,18 +1,34 @@
 <div class="container">
     <div class="verification my-6">
         <div class="verification-info" *ngIf="user">
-            <h3 class="h3"> Solo falta confirmar tu email </h3>
-            <div class="text-group mb-2">
-                <p class="text-center">Te enviamos un email a <strong>{{user.email}}</strong>.</p>
-                <p class="text-center">Revisa tu email e ingresa a el link para verificar </p>
+            <div *ngIf="!user.emailVerified">
+                <h3 class="h3"> Confirma tu email </h3>
+                <div class="text-group mb-2">
+                    <p class="text-center">
+                        Parece que aún no has ingresado al link. 
+                    </p>
+                    <p class="text-center">
+                        Revisa la bandeja de <b>{{user.email}}</b>, y dale click al link para verificarte.
+                    </p>
+                </div>
+                
+                <!-- Calling SendVerificationMail() method using authService Api -->
+                <h4 class="h4">
+                    ¿Ya diste click al email?
+                </h4>
+                <div class="formGroup ">
+                    <button mat-raised-button type="button" color="primary" class="btn md" (click)="reload()">
+                        Recarga y verifica
+                    </button>
+                </div>
             </div>
-            
-            <!-- Calling SendVerificationMail() method using authService Api -->
-            <div class="formGroup ">
-                <button mat-raised-button type="button" color="primary" class="btn md" (click)="sendVerificationEmail()">
-                    <i class="fas fa-redo-alt"></i>
-                    Reenviarme la verificación
-                </button>
+            <div *ngIf="user.emailVerified">
+                <h3 class="h3"> Tu email está confirmado </h3>
+                <div class="text-group mb-2">
+                    <p class="text-center">
+                        El link al dashboard ya esta habilitado en tu perfíl.
+                    </p>
+                </div>
             </div>
         </div>
         <div *ngIf="!user">

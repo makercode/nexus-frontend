@@ -26,6 +26,10 @@ export class VerifyComponent implements OnInit {
     )
   }
 
+  reload() {
+    location.reload();
+  }
+
   sendVerificationEmail() {
     console.log('boom!');
     this.authService.sendVerificationEmail()
