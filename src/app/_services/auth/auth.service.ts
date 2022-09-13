@@ -3,15 +3,9 @@ import { Router } from '@angular/router';
 
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-
 import { Subject, BehaviorSubject  } from "rxjs";
 
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
-
-import { IUser } from 'src/app/_interfaces/user.interface';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +13,10 @@ export class AuthService {
   public userObserver: Subject<any> = new BehaviorSubject( {} );
 
   constructor(
-    public afStore: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public userService: UserService,
   ) {
     this.afAuth.authState.subscribe( (afUser) => {
       if (afUser) {
@@ -53,7 +47,9 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.setUserData(result.user);
+        if( result.user && result.user.email ){
+          this.userService.setUserData(result.user.uid,result.user.email)
+        }
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['/']);
@@ -73,7 +69,9 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
         this.sendVerificationEmail();
-        this.setUserData(result.user);
+        if( result.user && result.user.email ){
+          this.userService.setUserData(result.user.uid,result.user.email)
+        }
       })
       .catch((error) => {
         window.alert(error.message);
@@ -120,31 +118,14 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.router.navigate(['dashboard']);
-        this.setUserData(result.user);
+
+        if( result.user && result.user.email ){
+          this.userService.setUserData(result.user.uid,result.user.email)
+        }
       })
       .catch((error) => {
         window.alert(error);
       });
   }
-
-  /* Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
-      `users/${user.uid}`
-    );
-    const userData: IUser = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-    };
-    return userRef.set(userData, {
-      merge: true,
-    });
-  }
-
-
+  
 }
