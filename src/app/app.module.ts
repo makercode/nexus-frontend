@@ -51,6 +51,7 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
+import { SlugifyPipe } from './_pipes/slugify.pipe';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import {
     SignoutComponent,
     TermsAndConditionsComponent,
     PoliticsAndPrivacyComponent,
-    DashboardComponent
+    DashboardComponent,
+    SlugifyPipe
   ],
   imports: [
     BrowserModule,
