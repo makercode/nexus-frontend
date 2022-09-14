@@ -24,6 +24,9 @@ import { TermsAndConditionsComponent } from './_views/terms-and-conditions/terms
 import { PoliticsAndPrivacyComponent } from './_views/politics-and-privacy/politics-and-privacy.component';
 import { DashboardComponent } from './_views/dashboard/dashboard.component';
 
+// Angular pipes
+import { SlugifyPipe } from './_pipes/slugify.pipe';
+
 // Components
 import { PasswordCheckerComponent } from './_views/account/_views/register/_components/password-checker/password-checker.component';
 
@@ -46,12 +49,12 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
+
 import {
   UserService,
   AuthService,
   AuthGuardService
 } from './_services';
-import { SlugifyPipe } from './_pipes/slugify.pipe';
 
 
 @NgModule({
