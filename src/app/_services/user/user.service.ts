@@ -14,7 +14,7 @@ export class UserService {
   ) {
   }
 
-  setUserData(uid: string,email:string,name?:string,subdomain?:string,plan?:string) {
+  setUserData(uid: string,email:string,name?:string,business?:string,ruc?:number,subdomain?:string,plan?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${uid}`
     );
@@ -22,6 +22,8 @@ export class UserService {
       uid: uid,
       email: email,
       ...(name && { name: name }),
+      ...(business && { business: business }),
+      ...(ruc && { ruc: ruc }),
       ...(subdomain && { subdomain: subdomain }),
       ...(plan && { plan: plan })
     };
