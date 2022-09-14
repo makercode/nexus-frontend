@@ -14,17 +14,18 @@ export class UserService {
   ) {
   }
 
-  setUserData(uid: string,email:string,subdomain?:string,plan?:string) {
+  setUserData(uid: string,email:string,name?:string,subdomain?:string,plan?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${uid}`
     );
     const userData: IUser = {
       uid: uid,
       email: email,
+      ...(name && { name: name }),
       ...(subdomain && { subdomain: subdomain }),
       ...(plan && { plan: plan })
     };
-    console.log(userData)
+    // console.log(userData)
     return userRef.set(userData, {
       merge: true,
     });
