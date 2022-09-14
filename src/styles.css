@@ -60,6 +60,13 @@ small {
   margin-top: auto!important;
   margin-bottom: auto!important;
 }
+.m-auto {
+  margin: auto!important;
+}
+.m-auto {
+  margin: auto!important;
+}
+
 
 
 
@@ -454,11 +461,21 @@ small {
 .text-right {
   text-align: left;
 }
+.text-center {
+  text-align: center;
+}
 
 .d-flex.row {
   flex-direction: row;
 }
 .d-flex.column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+.flex-column {
   flex-direction: column;
 }
 
