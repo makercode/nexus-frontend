@@ -35,11 +35,11 @@
         </div>
         <div *ngIf="!user">
             <p class="message">
-                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="sendVerificationEmail()">
+                <button mat-stroked-button type="button" class="btn btnPrimary" routerLink="/cuenta/ingresa">
                     Ingresa
                 </button>
                 o
-                <button mat-stroked-button type="button" class="btn btnPrimary" (click)="sendVerificationEmail()">
+                <button mat-stroked-button type="button" class="btn btnPrimary" routerLink="/cuenta/registrate">
                     Registrate
                 </button>
             </p>
