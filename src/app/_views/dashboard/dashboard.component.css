@@ -1,0 +1,21 @@
+
+.flex-stretch {
+    align-items: stretch;
+}
+.fill-width {
+    flex: 1;
+}
+.title-dashboard {
+    text-align: center;
+}
+.flex-aligner {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.grey {
+    color: #999;
+}
