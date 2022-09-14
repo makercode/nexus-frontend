@@ -26,7 +26,7 @@ export class VerifyComponent implements OnInit {
     )
   }
 
-  reload() {
+  reloadUser() {
     console.log("reload")
     this.authService.reloadCurrentUser();
   }
