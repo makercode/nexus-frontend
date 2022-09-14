@@ -1,10 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Subject, BehaviorSubject  } from 'rxjs';
-import { first } from 'rxjs/operators'
 
 import { UserService } from '../user/user.service';
 
@@ -19,10 +18,10 @@ export class AuthService {
     public ngZone: NgZone,
     public userService: UserService,
   ) {
-    this.getUser()
+    this.observeCurrentUser()
   }
 
-  async getUser() {
+  async observeCurrentUser() {
     this.afAuth.authState.subscribe( (afUser) => {
       console.log('getUserInfo afAuth.authState.subscribe')
       if (afUser) {
@@ -33,6 +32,26 @@ export class AuthService {
       // JSON.parse(localStorage.getItem('user')!);
       this.userObserver.next( afUser );
     })
+  }
+
+  async reloadCurrentUser() {
+    console.log("auth.currentUser")
+    const auth = getAuth()
+    if(auth && auth.currentUser) {
+      const usern = await auth.currentUser.reload()
+      console.log(auth.currentUser)
+      return usern
+    }
+  }
+
+  async getCurrentUser() {
+    const user = await this.afAuth.currentUser.then(
+      (user) => {
+        return user
+      }
+    )
+    console.log(user)
+    return user
   }
 
   // Sign out
@@ -52,7 +71,7 @@ export class AuthService {
           this.userService.setUserData(result.user.uid,result.user.email)
         }
         this.afAuth.authState.subscribe((user) => {
-          if (user) {
+          if(user) {
             this.router.navigate(['/']);
           }
         });
@@ -84,11 +103,11 @@ export class AuthService {
         return user
       }
     )
-    if (user) {
+    if (user && !user.emailVerified) {
       user.sendEmailVerification()
       this.router.navigate(['cuenta/verificame'])
     } else {
-      console.log('error no posible')
+      alert('Ya estas verificado')
     }
   }
   

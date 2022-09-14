@@ -27,7 +27,8 @@ export class VerifyComponent implements OnInit {
   }
 
   reload() {
-    location.reload();
+    console.log("reload")
+    this.authService.reloadCurrentUser();
   }
 
   sendVerificationEmail() {
