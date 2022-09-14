@@ -25,7 +25,7 @@ export class AuthService {
     this.afAuth.authState.subscribe( (afUser) => {
       console.log('getUserInfo afAuth.authState.subscribe')
       if (afUser) {
-        localStorage.setItem('user', JSON.stringify(afUser));
+        localStorage.setItem('user', JSON.stringify(afUser))
       } else {
         localStorage.setItem('user', 'null');
       }
@@ -34,14 +34,13 @@ export class AuthService {
     })
   }
 
-  async reloadCurrentUser() {
-    console.log("auth.currentUser")
+  async reloadCurrentUser(): Promise<boolean> {
     const auth = getAuth()
     if(auth && auth.currentUser) {
-      const usern = await auth.currentUser.reload()
-      console.log(auth.currentUser)
-      return usern
+      await auth.currentUser.reload()
+      return true
     }
+    return false
   }
 
   async getCurrentUser() {
@@ -98,24 +97,24 @@ export class AuthService {
   }
 
   async sendVerificationEmail() {
-    const user = await this.afAuth.currentUser.then(
-      (user) => {
-        return user
+    await this.reloadCurrentUser()
+    this.afAuth.currentUser.then(
+      (resultUser) => {
+        if(resultUser && !resultUser.emailVerified){
+          resultUser.sendEmailVerification()
+        } else {
+          alert('Ya estas verificado')
+        }
       }
     )
-    if (user && !user.emailVerified) {
-      user.sendEmailVerification()
-      this.router.navigate(['cuenta/verificame'])
-    } else {
-      alert('Ya estas verificado')
-    }
+    this.router.navigate(['cuenta/verificame'])
   }
   
   forgotPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        window.alert('Password reset email sent, check your inbox.')
       })
       .catch((error) => {
         window.alert(error);
@@ -124,14 +123,14 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    const user = JSON.parse(localStorage.getItem('user')!)
+    return user !== null && user.emailVerified !== false ? true : false
   }
 
   // Sign in with Google
   googleAuth() {
     return this.authLogin(new GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard'])
     });
   }
 
@@ -147,7 +146,7 @@ export class AuthService {
         }
       })
       .catch((error) => {
-        window.alert(error);
+        window.alert(error)
       });
   }
   
