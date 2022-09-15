@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   constructor(
      public authService: AuthService,
      private slugifyPipe: SlugifyPipe
-    ) { }
+  ) { }
 
   get name() { return this.userForm.get('name')! }
   get business() { return this.userForm.get('business')! }
@@ -72,6 +72,11 @@ export class DashboardComponent implements OnInit {
       event.preventDefault();
       return false;
     }
+  }
+
+  onSubdomainChange() {
+    let textSubdomain = this.slugify(this.subdomain.value)
+    this.userForm.controls['subdomain'].setValue( textSubdomain )
   }
 
 }

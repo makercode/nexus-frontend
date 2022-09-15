@@ -72,7 +72,8 @@
                 <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
                     <mat-form-field appearance="legacy" class="mr-1 d-none">
                         <input matInput type="text" id="subdomain" placeholder="Url de tablero" 
-                            formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)">
+                            formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)" 
+                            (change)="onSubdomainChange()">
                         <mat-error>
                             <span *ngIf="subdomain.errors?.['required']">
                                 No hay url.
@@ -92,7 +93,7 @@
                         </mat-error>
                     </mat-form-field>
                     <h1 class="flex-rower">
-                        {{business.value | slugify }}<span class="grey">.anexalo.com</span> 
+                        {{subdomain.value | slugify }}<span class="grey">.anexalo.com</span> 
                     </h1>
                 </div>
             </div>
