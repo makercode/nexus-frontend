@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
     subdomain: new FormControl( '', [
       Validators.required,
       Validators.minLength(4),
+      Validators.maxLength(18),
     ]),
     ruc: new FormControl( '', [
       Validators.required,
@@ -45,6 +46,10 @@ export class DashboardComponent implements OnInit {
   });
 
   ngOnInit(): void {
+  }
+
+  onBusinessChange() {
+    this.userForm.controls['subdomain'].setValue( this.slugify(this.business.value) );
   }
 
   slugify(input: string){

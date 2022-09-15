@@ -1,28 +1,28 @@
 <div class="container">
     <div class="dashboard my-6 w-100">
-      <h3 class="h4 mb-2">
-        Bienvenido!
+      <h3 class="h4 mb-2 d-flex">
+        Estamos creando tu centro de control
+        <button [disabled]="userForm.invalid" mat-raised-button color="primary" class="btn sm ml-auto" (click)="sendUserInfo()">
+          <span>CREALO</span> 
+        </button>
       </h3>
-      <p>
-        Completa tus datos y empieza a conectar tu negocio.
-      </p>
       <form class="mb-3 w-100" [formGroup]="userForm">
         <div class="d-flex w-100 flex-stretch">
-            <div class="auto-width">
+            <div class="auto-width mr-2">
                 <div class="mb-2">
                   <mat-form-field appearance="legacy" class="mr-1">
                     <mat-label for="name">Nombre de usuario</mat-label>
                     <input matInput type="text" id="name" placeholder="name" formControlName="name">
                     <mat-hint>
-                      Tu Nombre
+                        Tu Nombre
                     </mat-hint>
                     <mat-error>
-                      <span *ngIf="name.errors?.['required']">
-                        No hay Nombre.
-                      </span>
-                      <span *ngIf="name.errors?.['minlength']">
-                        Debe tener al menos 2 carácteres.
-                      </span>
+                        <span *ngIf="name.errors?.['required']">
+                            No hay Nombre.
+                        </span>
+                        <span *ngIf="name.errors?.['minlength']">
+                            Debe tener mínimo 2 carácteres.
+                        </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -31,19 +31,19 @@
                     <mat-label for="business">Nombre de negocio</mat-label>
                     <input matInput type="text" id="business" placeholder="business" formControlName="business">
                     <mat-hint>
-                      Razón social
+                        Razón social
                     </mat-hint>
                     <mat-error>
-                      <span *ngIf="business.errors?.['required']">
-                        No hay Nombre.
-                      </span>
-                      <span *ngIf="business.errors?.['minlength']">
-                        Debe tener al menos 4 carácteres.
-                      </span>
+                        <span *ngIf="business.errors?.['required']">
+                            No hay Nombre.
+                        </span>
+                        <span *ngIf="business.errors?.['minlength']">
+                            Debe tener mínimo 4 carácteres.
+                        </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="mb-2">
+                <div class="mb-0">
                   <mat-form-field appearance="legacy" class="mr-1">
                     <mat-label for="ruc">Ruc de negocio</mat-label>
                     <input matInput type="text" id="ruc" placeholder="ruc" formControlName="ruc">
@@ -51,41 +51,53 @@
                         Ruc de negocio
                     </mat-hint>
                     <mat-error>
-                      <span *ngIf="ruc.errors?.['required']">
-                        No hay ruc.
-                      </span>
-                      <span *ngIf="ruc.errors?.['pattern']">
-                        Debe tener solo números.
-                      </span>
-                      <span *ngIf="ruc.errors?.['minlength']">
-                        Debe tener minimo 7 números.
-                      </span>
-                      <span *ngIf="ruc.errors?.['maxlength']">
-                        Debe tener maximo 11 números.
-                      </span>
+                        <span *ngIf="ruc.errors?.['required']">
+                            No hay ruc.
+                        </span>
+                        <span *ngIf="ruc.errors?.['pattern']">
+                            Debe tener solo números.
+                        </span>
+                        <span *ngIf="ruc.errors?.['minlength']">
+                            Debe tener mínimo 7 números.
+                        </span>
+                        <span *ngIf="ruc.errors?.['maxlength']">
+                            Debe tener máximo 11 números.
+                        </span>
                     </mat-error>
                   </mat-form-field>
                 </div>
             </div>
             <div class="fill-width">
-                <div class="flex-aligner d-flex flex-column" *ngIf="business.value">
-                    <p class="mb-0">
-                        Tu tablero será: 
-                    </p>
+                <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
+                    <mat-form-field appearance="legacy" class="mr-1 d-none">
+                        <input matInput type="text" id="subdomain" placeholder="Url de tablero" 
+                            formControlName="subdomain" [value]="business.value | slugify" (change)="onBusinessChange()">
+                        <mat-error>
+                            <span *ngIf="subdomain.errors?.['required']">
+                                No hay url.
+                            </span>
+                            <span *ngIf="subdomain.errors?.['pattern']">
+                                Debe tener solo letras y guiones.
+                            </span>
+                            <span *ngIf="subdomain.errors?.['minlength']">
+                                Debe tener mínimo 4 letras.
+                            </span>
+                            <span *ngIf="subdomain.errors?.['minlength']">
+                                Debe tener máximo 18 letras.
+                            </span>
+                            <span *ngIf="subdomain.errors?.['minlength']">
+                                Url ya tomada, intenta otra.
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
                     <h1 class="flex-rower">
-                        {{business.value | slugify }}
-                        <span class="grey">.anexalo.com</span> 
+                        {{business.value | slugify }}<span class="grey">.anexalo.com</span> 
                     </h1>
                 </div>
             </div>
 
         </div>
 
-        <div class="d-block">
-          <button [disabled]="userForm.invalid" mat-raised-button color="primary" class="btn sm" (click)="sendUserInfo()">
-            <span>crear mi Dashboard</span> 
-          </button>
-        </div>
       </form>
     </div>
 </div>
