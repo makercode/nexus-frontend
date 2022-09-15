@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
     subdomain: new FormControl( '', [
       Validators.required,
       Validators.minLength(4),
-      Validators.maxLength(18),
+      Validators.maxLength(24),
     ]),
     ruc: new FormControl( '', [
       Validators.required,
@@ -58,6 +58,20 @@ export class DashboardComponent implements OnInit {
   }
   sendUserInfo() {
     console.log('sending')
+  }
+
+  keyPressAlphaNumeric(event:KeyboardEvent) {
+    var inp = String.fromCharCode(event.keyCode);
+    console.log(inp)
+    if (/[a-zA-Z0-9]/.test(inp)) {
+      return true;
+    }
+    else if (inp=='-') {
+      return true
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
 }

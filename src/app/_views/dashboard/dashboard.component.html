@@ -2,7 +2,7 @@
     <div class="dashboard my-6 w-100">
       <h3 class="h4 mb-2 d-flex">
         Estamos creando tu centro de control
-        <button [disabled]="userForm.invalid" mat-raised-button color="primary" class="btn sm ml-auto" (click)="sendUserInfo()">
+        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserInfo()">
           <span>CREALO</span> 
         </button>
       </h3>
@@ -29,7 +29,8 @@
                 <div class="mb-2">
                   <mat-form-field appearance="legacy" class="mr-1">
                     <mat-label for="business">Nombre de negocio</mat-label>
-                    <input matInput type="text" id="business" placeholder="business" formControlName="business">
+                    <input matInput type="text" id="business" placeholder="business" 
+                    (change)="onBusinessChange()" formControlName="business">
                     <mat-hint>
                         Razón social
                     </mat-hint>
@@ -71,7 +72,7 @@
                 <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
                     <mat-form-field appearance="legacy" class="mr-1 d-none">
                         <input matInput type="text" id="subdomain" placeholder="Url de tablero" 
-                            formControlName="subdomain" [value]="business.value | slugify" (change)="onBusinessChange()">
+                            formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)">
                         <mat-error>
                             <span *ngIf="subdomain.errors?.['required']">
                                 No hay url.
@@ -82,10 +83,10 @@
                             <span *ngIf="subdomain.errors?.['minlength']">
                                 Debe tener mínimo 4 letras.
                             </span>
-                            <span *ngIf="subdomain.errors?.['minlength']">
-                                Debe tener máximo 18 letras.
+                            <span *ngIf="subdomain.errors?.['maxlength']">
+                                Debe tener máximo 24 letras.
                             </span>
-                            <span *ngIf="subdomain.errors?.['minlength']">
+                            <span *ngIf="subdomain.errors?.['taken']">
                                 Url ya tomada, intenta otra.
                             </span>
                         </mat-error>
