@@ -21,16 +21,18 @@ export class AuthService {
     this.observeCurrentUser()
   }
 
+
   async observeCurrentUser() {
     this.afAuth.authState.subscribe( (afUser) => {
       console.log('getUserInfo afAuth.authState.subscribe')
       if (afUser) {
         localStorage.setItem('user', JSON.stringify(afUser))
       } else {
-        localStorage.setItem('user', 'null');
+        localStorage.setItem('user', 'null')
       }
-      // JSON.parse(localStorage.getItem('user')!);
-      this.userObserver.next( afUser );
+      // JSON.parse(localStorage.getItem('user')!)
+      this.userObserver.next( afUser )
+      console.log(afUser)
     })
   }
 
@@ -68,7 +70,7 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user')
       this.router.navigate(['cuenta/salir'])
-    });
+    })
   }
 
   // Sign in with email/password
@@ -81,13 +83,13 @@ export class AuthService {
         }
         this.afAuth.authState.subscribe((user) => {
           if(user) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/'])
           }
-        });
+        })
       })
       .catch((error) => {
-        window.alert(error.message);
-      });
+        window.alert(error.message)
+      })
   }
 
   // Sign up with email/password
@@ -96,14 +98,14 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() firebase function */
-        this.sendVerificationEmail();
+        this.sendVerificationEmail()
         if( result.user && result.user.email ){
           this.userService.setUserData(result.user.uid,result.user.email)
         }
       })
       .catch((error) => {
-        window.alert(error.message);
-      });
+        window.alert(error.message)
+      })
   }
 
   async sendVerificationEmail() {
@@ -127,8 +129,8 @@ export class AuthService {
         window.alert('Password reset email sent, check your inbox.')
       })
       .catch((error) => {
-        window.alert(error);
-      });
+        window.alert(error)
+      })
   }
 
   // Returns true when user is looged in and email is verified
@@ -141,7 +143,7 @@ export class AuthService {
   googleAuth() {
     return this.authLogin(new GoogleAuthProvider()).then((res: any) => {
       this.router.navigate(['dashboard'])
-    });
+    })
   }
 
   // Auth logic to run auth providers
@@ -149,7 +151,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard'])
 
         if( result.user && result.user.email ){
           this.userService.setUserData(result.user.uid,result.user.email)
@@ -157,7 +159,7 @@ export class AuthService {
       })
       .catch((error) => {
         window.alert(error)
-      });
+      })
   }
   
 }
