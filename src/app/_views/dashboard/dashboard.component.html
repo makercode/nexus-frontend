@@ -1,8 +1,20 @@
 <div class="container">
-    <div class="dashboard my-6 w-100">
+    <div class="dashboard my-6 w-100" *ngIf="userData.subdomain">
+        <div class="fill-width">
+            <div class="flex-aligner d-flex flex-column dashboard-presentation py-4">
+                <p class="mb-0">
+                    Redirigiendote a tu tablero:
+                </p>
+                <h1 class="mb-0">
+                    {{userData.subdomain}}<span class="grey">.anexalo.com</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard my-6 w-100" *ngIf="userData && !userData.subdomain">
       <h3 class="h4 mb-2 d-flex">
         Estamos creando tu centro de control
-        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserAndDomainrInfo()">
+        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserAndDomainInfo()">
           <span>CREALO</span> 
         </button>
       </h3>

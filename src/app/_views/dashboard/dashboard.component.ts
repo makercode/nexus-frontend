@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { AuthService, UserService } from '../../_services';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { SlugifyPipe } from '../../_pipes/slugify.pipe'; 
+import { SlugifyPipe } from '../../_pipes/slugify.pipe';
+import { User } from 'firebase/auth';
+import { IUser } from 'src/app/_interfaces/user.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,10 +19,14 @@ export class DashboardComponent implements OnInit {
      public authService: AuthService,
      public userService: UserService,
      private slugifyPipe: SlugifyPipe
-  ) { }
+  ) { 
+    this.observeUser()
+  }
 
   // Check for allow edit subdomain
-  editableSubdomain = false
+  editableSubdomain: boolean = false
+  user: User = {} as User
+  userData: IUser = {} as IUser
 
   get name() { return this.userForm.get('name')! }
   get business() { return this.userForm.get('business')! }
@@ -48,6 +54,26 @@ export class DashboardComponent implements OnInit {
       Validators.maxLength(12),
     ]),
   });
+
+
+  observeUser(){
+    this.authService.userObserver.subscribe(
+      (userResponse: User) => {
+        console.log("userResponse")
+        this.user = userResponse
+        
+        if(userResponse.uid){
+          this.userService.getCurrentUserData(userResponse.uid).then(
+            (resUser) => {
+              this.userData = resUser
+              console.log(this.userData)
+            }
+          )
+        }
+      }
+    )
+  }
+  
 
   ngOnInit(): void {
   }
@@ -84,10 +110,10 @@ export class DashboardComponent implements OnInit {
     this.editableSubdomain = true
   }
   
-  async sendUserAndDomainrInfo() {
+  async sendUserAndDomainInfo() {
     const currentUser = await this.authService.getCurrentUser()
     if( currentUser&&currentUser.email) {
-      this.userService.writteUserAndDomainData(
+      this.userService.writteUserAndDomainDBData(
         currentUser.uid,
         currentUser.email,
         this.name.value,
