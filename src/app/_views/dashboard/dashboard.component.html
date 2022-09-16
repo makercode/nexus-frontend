@@ -2,7 +2,7 @@
     <div class="dashboard my-6 w-100">
       <h3 class="h4 mb-2 d-flex">
         Estamos creando tu centro de control
-        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserInfo()">
+        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserAndDomainrInfo()">
           <span>CREALO</span> 
         </button>
       </h3>
@@ -70,7 +70,7 @@
             </div>
             <div class="fill-width">
                 <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
-                    <mat-form-field appearance="legacy" class="mr-1 d-none">
+                    <mat-form-field appearance="legacy" class="mr-1 d-none" *ngIf="editableSubdomain">
                         <input matInput type="text" id="subdomain" placeholder="Url de tablero" 
                             formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)" 
                             (change)="onSubdomainChange()">
@@ -94,6 +94,10 @@
                     </mat-form-field>
                     <h1 class="flex-rower">
                         {{subdomain.value | slugify }}<span class="grey">.anexalo.com</span> 
+                        <button mat-icon-button color="primary" *ngIf="!editableSubdomain" 
+                            (click)="allowEditableSubdomain()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
                     </h1>
                 </div>
             </div>

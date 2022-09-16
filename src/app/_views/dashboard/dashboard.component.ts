@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../_services';
+import { AuthService, UserService } from '../../_services';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SlugifyPipe } from '../../_pipes/slugify.pipe'; 
@@ -15,8 +15,12 @@ export class DashboardComponent implements OnInit {
 
   constructor(
      public authService: AuthService,
+     public userService: UserService,
      private slugifyPipe: SlugifyPipe
   ) { }
+
+  // Check for allow edit subdomain
+  editableSubdomain = false
 
   get name() { return this.userForm.get('name')! }
   get business() { return this.userForm.get('business')! }
@@ -49,19 +53,16 @@ export class DashboardComponent implements OnInit {
   }
 
   onBusinessChange() {
-    this.userForm.controls['subdomain'].setValue( this.slugify(this.business.value) );
+    this.userForm.controls['subdomain'].setValue( this.slugify(this.business.value) )
   }
 
   slugify(input: string){
     // this.subdomain = this.slugifyPipe.transform(input)
     return this.slugifyPipe.transform(input)
   }
-  sendUserInfo() {
-    console.log('sending')
-  }
 
   keyPressAlphaNumeric(event:KeyboardEvent) {
-    var inp = String.fromCharCode(event.keyCode);
+    var inp = String.fromCharCode(event.keyCode)
     console.log(inp)
     if (/[a-zA-Z0-9]/.test(inp)) {
       return true;
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
     else if (inp=='-') {
       return true
     } else {
-      event.preventDefault();
+      event.preventDefault()
       return false;
     }
   }
@@ -77,6 +78,24 @@ export class DashboardComponent implements OnInit {
   onSubdomainChange() {
     let textSubdomain = this.slugify(this.subdomain.value)
     this.userForm.controls['subdomain'].setValue( textSubdomain )
+  }
+
+  allowEditableSubdomain() {
+    this.editableSubdomain = true
+  }
+  
+  async sendUserAndDomainrInfo() {
+    const currentUser = await this.authService.getCurrentUser()
+    if( currentUser&&currentUser.email) {
+      this.userService.writteUserAndDomainData(
+        currentUser.uid,
+        currentUser.email,
+        this.name.value,
+        this.business.value,
+        this.subdomain.value,
+        this.ruc.value
+      )
+    }
   }
 
 }
