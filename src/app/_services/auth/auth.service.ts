@@ -44,13 +44,23 @@ export class AuthService {
   }
 
   async getCurrentUser() {
-    const user = await this.afAuth.currentUser.then(
+    return await this.afAuth.currentUser.then(
       (user) => {
         return user
       }
     )
-    console.log(user)
-    return user
+  }
+
+  async getCurrentUserUid() {
+    return await this.afAuth.currentUser.then(
+      (resultUser) => {
+        if(resultUser) {
+          return resultUser?.uid
+        } else {
+          return false
+        }
+      }
+    )
   }
 
   // Sign out
