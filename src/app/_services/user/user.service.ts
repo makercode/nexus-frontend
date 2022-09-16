@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUser } from 'src/app/_interfaces/user.interface';
-import { writeBatch, doc } from "firebase/firestore";
+import { writeBatch, doc, getDoc } from "firebase/firestore";
+
 
 import {
   AngularFirestore,
@@ -15,7 +16,7 @@ export class UserService {
   ) {
   }
 
-  setUserData(uid: string,email:string,name?:string,business?:string,subdomain?:string,ruc?:number) {
+  setUserData(uid: string,email:string,name?:string,business?:string,subdomain?:string,ruc?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${uid}`
     )
@@ -34,7 +35,20 @@ export class UserService {
     })
   }
 
-  async writteUserAndDomainData(uid: string,email:string,name:string,business:string,subdomain:string,ruc:number) {
+  async getCurrentUserData(uid:string): Promise<IUser>{
+    const db = this.afStore.firestore
+    const subdomainRef = doc(db, "users", uid)
+    const subdomainSnap = await getDoc(subdomainRef)
+    
+    if(subdomainSnap.exists()) {
+      return subdomainSnap.data()
+    } else {
+      console.log("Document does not exist")
+      return {} as IUser
+    }
+  }
+
+  async writteUserAndDomainDBData(uid: string,email:string,name:string,business:string,subdomain:string,ruc:string): Promise<boolean> {
     try {
       const db = this.afStore.firestore
 
@@ -66,10 +80,12 @@ export class UserService {
       })
 
       let res = await batch.commit()
-      console.error(res)
+      return true;
+
     } catch (e) {
       // This will be a "population is too big" error.
       console.error(e);
+      return false
     }
   }
 
