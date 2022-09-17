@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
      private slugifyPipe: SlugifyPipe
   ) { 
     this.observeUser()
+    console.log("('user')")
+    console.log(JSON.parse(localStorage.getItem('user')!))
   }
 
   // Check for allow edit subdomain
@@ -55,21 +57,13 @@ export class DashboardComponent implements OnInit {
     ]),
   });
 
-
-  observeUser(){
-    this.authService.userObserver.subscribe(
-      (userResponse: FireUser) => {
-        console.log("userResponse")
-        this.user = userResponse
-        
-        if(userResponse.uid){
-          this.userService.getCurrentUserData(userResponse.uid).then(
-            (resUser) => {
-              this.userData = resUser
-              console.log(this.userData)
-            }
-          )
-        }
+  
+  async observeUser(){
+    let userUid = JSON.parse(localStorage.getItem('user')!).uid
+    this.userService.getCurrentUserData( userUid ).then(
+      (resUser) => {
+        this.userData = resUser
+        console.log(this.userData)
       }
     )
   }
