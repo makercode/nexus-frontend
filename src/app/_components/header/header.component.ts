@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth/auth.service';
-import { User } from 'firebase/auth';
+import { User as FireUser }  from 'firebase/auth';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { User } from 'firebase/auth';
 })
 export class HeaderComponent implements OnInit {
 
-  public user: User = {} as User;
+  public user: FireUser = {} as FireUser;
 
   constructor(public authService: AuthService) {
     this.observeUser()
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   observeUser(){
     this.authService.userObserver.subscribe(
-      (userResponse: User) => {
+      (userResponse: FireUser) => {
         this.user = userResponse
       }
     )

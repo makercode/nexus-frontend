@@ -3,7 +3,7 @@ import { AuthService, UserService } from '../../_services';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SlugifyPipe } from '../../_pipes/slugify.pipe';
-import { User } from 'firebase/auth';
+import { User as FireUser } from 'firebase/auth';
 import { IUser } from 'src/app/_interfaces/user.interface';
 
 @Component({
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   // Check for allow edit subdomain
   editableSubdomain: boolean = false
-  user: User = {} as User
+  user: FireUser = {} as FireUser
   userData: IUser = {} as IUser
 
   get name() { return this.userForm.get('name')! }
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
 
   observeUser(){
     this.authService.userObserver.subscribe(
-      (userResponse: User) => {
+      (userResponse: FireUser) => {
         console.log("userResponse")
         this.user = userResponse
         
