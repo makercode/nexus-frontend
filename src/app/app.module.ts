@@ -27,9 +27,6 @@ import { DashboardComponent } from './_views/dashboard/dashboard.component';
 // Angular pipes
 import { SlugifyPipe } from './_pipes/slugify.pipe';
 
-// Angular directives
-import { AutowidthDirective } from './_directives/autowidth.directive';
-
 // Angular Components
 import { PasswordCheckerComponent } from './_views/account/_views/register/_components/password-checker/password-checker.component';
 
@@ -78,8 +75,7 @@ import {
     TermsAndConditionsComponent,
     PoliticsAndPrivacyComponent,
     DashboardComponent,
-    SlugifyPipe,
-    AutowidthDirective
+    SlugifyPipe
   ],
   imports: [
     BrowserModule,
