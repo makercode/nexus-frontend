@@ -137,16 +137,19 @@ export class DashboardComponent implements OnInit {
 
 export class IsSubdomainTaken {
   static subdomain(afs: AngularFirestore) {
-    console.log('ok')
-    return (control: AbstractControl) => {
+    return async (control: AbstractControl) =>  {
       const subdomain = control.value.toLowerCase()
-
-      return afs.collection('subdomains', (ref:any) => ref.where('subdomain','==', subdomain))
-        .valueChanges().pipe(
-          debounceTime(500),
-          take(1),
-          map(arr => arr.length ? { subdomainAvailable: false }: null)
-        )
+      console.log('ac')
+      let isTaken = afs.collection('subdomains', (ref:any) => ref.where('subdomain','==', subdomain))
+      .valueChanges().pipe(
+        debounceTime(500),
+        take(1),
+        map(arr => arr.length ? { subdomainAvailable: false }: { subdomainAvailable: true })
+      )
+      isTaken.subscribe(res => {
+        console.log(res)
+      })
+      return isTaken
     }
   }
 }
