@@ -42,7 +42,8 @@
                   <mat-form-field appearance="legacy" class="mr-1">
                     <mat-label for="business">Nombre de negocio</mat-label>
                     <input matInput type="text" id="business" placeholder="business" 
-                    (change)="onBusinessChange()" formControlName="business">
+                    (change)="onBusinessChange()" formControlName="business" (keydown)="resizeSubdomainInput()" 
+                    (keyup)="resizeSubdomainInput()">
                     <mat-hint>
                         Razón social
                     </mat-hint>
@@ -83,9 +84,6 @@
             <div class="fill-width">
                 <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
                     <mat-form-field appearance="legacy" class="mr-1 d-none" *ngIf="editableSubdomain">
-                        <input matInput type="text" id="subdomain" placeholder="Url de tablero" 
-                            formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)" 
-                            (change)="onSubdomainChange()">
                         <mat-error>
                             <span *ngIf="subdomain.errors?.['required']">
                                 No hay url.
@@ -105,12 +103,26 @@
                         </mat-error>
                     </mat-form-field>
                     <h1 class="flex-rower">
-                        {{subdomain.value | slugify }}<span class="grey">.anexalo.com</span> 
-                        <button mat-icon-button color="primary" *ngIf="!editableSubdomain" 
-                            (click)="allowEditableSubdomain()">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </h1>
+                        <span class="shadowWidth" id="shadowWidth" #shadowWidth>
+                            {{subdomain.value | slugify }}
+                        </span><br>
+                        <input matInput type="text" id="subdomain" class="subdomain" placeholder="Url de tablero" 
+                            formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)" 
+                            (change)="onSubdomainChange()" (keydown)="resizeSubdomainInput()" 
+                            (keyup)="resizeSubdomainInput()" [style.width.px]='width'>
+                        <span class="grey">.anexalo.com</span>
+                    </h1> <br>
+                    <p class="m-0" *ngIf="subdomain.errors">
+                        <span *ngIf="subdomain.errors?.['minlength']">
+                            Tu subdominio no debe de tener menos de 4 letras.
+                        </span>
+                        <span *ngIf="subdomain.errors?.['maxlength']">
+                            Tu subdominio no debe de tener mas de 24 letras.
+                        </span>
+                        <span *ngIf="subdomain.errors?.['taken']">
+                            Tu subdominio ya esta tomado.
+                        </span>
+                    </p>
                 </div>
             </div>
 

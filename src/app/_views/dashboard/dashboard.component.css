@@ -22,3 +22,14 @@
 .dashboard-presentation {
     background-color: #ddd;
 }
+.subdomain {
+    width: auto;
+    text-align: right;
+    margin-right: 0;
+    border-bottom: 1px solid #666;
+    margin-bottom: -1px;
+}
+.shadowWidth {
+    opacity: 0;
+    visibility: hidden;
+}

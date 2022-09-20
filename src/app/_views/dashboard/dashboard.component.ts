@@ -1,10 +1,13 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { map, take, debounceTime } from 'rxjs';
+
 import { AuthService, UserService } from '../../_services';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SlugifyPipe } from '../../_pipes/slugify.pipe';
-import { User as FireUser } from 'firebase/auth';
+import { User as IFireUser } from 'firebase/auth';
 import { IUser } from 'src/app/_interfaces/user.interface';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,19 +18,24 @@ import { IUser } from 'src/app/_interfaces/user.interface';
 
 export class DashboardComponent implements OnInit {
 
+  @ViewChild('shadowWidth', {static: false}) shadowWidth: ElementRef | undefined;
+  
   constructor(
      public authService: AuthService,
      public userService: UserService,
-     private slugifyPipe: SlugifyPipe
+     private slugifyPipe: SlugifyPipe,
+     private afStore: AngularFirestore
   ) { 
     this.observeUser()
     console.log("('user')")
     console.log(JSON.parse(localStorage.getItem('user')!))
   }
 
+  width: number = 20
+
   // Check for allow edit subdomain
   editableSubdomain: boolean = false
-  user: FireUser = {} as FireUser
+  user: IFireUser = {} as IFireUser
   userData: IUser = {} as IUser
 
   get name() { return this.userForm.get('name')! }
@@ -48,6 +56,7 @@ export class DashboardComponent implements OnInit {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(24),
+      IsSubdomainTaken.subdomain(this.afStore)
     ]),
     ruc: new FormControl( '', [
       Validators.required,
@@ -57,8 +66,7 @@ export class DashboardComponent implements OnInit {
     ]),
   });
 
-  
-  async observeUser(){
+  async observeUser() {
     let userUid = JSON.parse(localStorage.getItem('user')!).uid
     this.userService.getCurrentUserData( userUid ).then(
       (resUser) => {
@@ -68,15 +76,15 @@ export class DashboardComponent implements OnInit {
     )
   }
   
-
   ngOnInit(): void {
   }
 
   onBusinessChange() {
     this.userForm.controls['subdomain'].setValue( this.slugify(this.business.value) )
+    this.resizeSubdomainInput()
   }
 
-  slugify(input: string){
+  slugify(input: string) {
     // this.subdomain = this.slugifyPipe.transform(input)
     return this.slugifyPipe.transform(input)
   }
@@ -98,6 +106,8 @@ export class DashboardComponent implements OnInit {
   onSubdomainChange() {
     let textSubdomain = this.slugify(this.subdomain.value)
     this.userForm.controls['subdomain'].setValue( textSubdomain )
+
+    this.resizeSubdomainInput()
   }
 
   allowEditableSubdomain() {
@@ -118,4 +128,25 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  resizeSubdomainInput() {
+    this.width = Math.max( this.shadowWidth!.nativeElement.offsetWidth + 6 )
+  }
+
+}
+
+
+export class IsSubdomainTaken {
+  static subdomain(afs: AngularFirestore) {
+    console.log('ok')
+    return (control: AbstractControl) => {
+      const subdomain = control.value.toLowerCase()
+
+      return afs.collection('subdomains', (ref:any) => ref.where('subdomain','==', subdomain))
+        .valueChanges().pipe(
+          debounceTime(500),
+          take(1),
+          map(arr => arr.length ? { subdomainAvailable: false }: null)
+        )
+    }
+  }
 }
