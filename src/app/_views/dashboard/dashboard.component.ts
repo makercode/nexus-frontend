@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(24),
-      IsSubdomainTaken.subdomain(this.afStore)
     ]),
     ruc: new FormControl( '', [
       Validators.required,
@@ -77,6 +76,8 @@ export class DashboardComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    
+    this.watcher()
   }
 
   onBusinessChange() {
@@ -132,19 +133,38 @@ export class DashboardComponent implements OnInit {
     this.width = Math.max( this.shadowWidth!.nativeElement.offsetWidth + 6 )
   }
 
-}
+  watcher() {
 
+    let isTaken = true
 
-export class IsSubdomainTaken {
-  static subdomain(afs: AngularFirestore) {
+    let suscription
+    
+    let inputSubdomain = this.subdomain.valueChanges.pipe(
+      debounceTime(500)
+    )
+
+    // when input change
+    inputSubdomain.subscribe(subdomain => {
+      suscription = this.afStore.doc(`subdomains/${subdomain}`).get()
+      suscription.subscribe((subdomain) => {
+        console.log( subdomain.exists )
+        isTaken = subdomain.exists
+      })
+    })
+
+  }
+
+  /*
+  subdomainTaken (afs: AngularFirestore) {
+    console.log("subdomainTaken")
     return async (control: AbstractControl) =>  {
-      const subdomain = control.value.toLowerCase()
-      console.log('ac')
+      return {subdomainAvailable: false}
+
       let isTaken = afs.collection('subdomains', (ref:any) => ref.where('subdomain','==', subdomain))
       .valueChanges().pipe(
-        debounceTime(500),
+        debounceTime(2000),
         take(1),
-        map(arr => arr.length ? { subdomainAvailable: false }: { subdomainAvailable: true })
+        map(arr => arr.length ? { subdomainAvailable: false }: null)
       )
       isTaken.subscribe(res => {
         console.log(res)
@@ -152,4 +172,6 @@ export class IsSubdomainTaken {
       return isTaken
     }
   }
+  */
+
 }

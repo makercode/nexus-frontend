@@ -55,6 +55,7 @@ import {
   AuthService,
   AuthGuardService
 } from './_services';
+import { SubdomainDirective } from './_directives/subdomain.directive';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {
     TermsAndConditionsComponent,
     PoliticsAndPrivacyComponent,
     DashboardComponent,
-    SlugifyPipe
+    SlugifyPipe,
+    SubdomainDirective
   ],
   imports: [
     BrowserModule,

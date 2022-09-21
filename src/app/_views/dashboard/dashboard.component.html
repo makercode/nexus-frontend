@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="fill-width">
-                <div class="flex-aligner d-flex flex-column dashboard-presentation" *ngIf="business.value">
+                <div class="flex-aligner d-flex flex-column dashboard-presentation">
                     <mat-form-field appearance="legacy" class="mr-1 d-none" *ngIf="editableSubdomain">
                         <mat-error>
                             <span *ngIf="subdomain.errors?.['required']">
@@ -106,7 +106,7 @@
                         <span class="shadowWidth" id="shadowWidth" #shadowWidth>
                             {{subdomain.value | slugify }}
                         </span><br>
-                        <input matInput type="text" id="subdomain" class="subdomain" placeholder="Url de tablero" 
+                        <input matInput type="text" id="subdomain" class="subdomain" placeholder=" " 
                             formControlName="subdomain" (keypress)="keyPressAlphaNumeric($event)" 
                             (change)="onSubdomainChange()" (keydown)="resizeSubdomainInput()" 
                             (keyup)="resizeSubdomainInput()" [style.width.px]='width'>
@@ -119,8 +119,11 @@
                         <span *ngIf="subdomain.errors?.['maxlength']">
                             Tu subdominio no debe de tener mas de 24 letras.
                         </span>
-                        <span *ngIf="subdomain.errors?.['taken']">
+                        <span *ngIf="subdomain.errors?.['subdomainAvailable']">
                             Tu subdominio ya esta tomado.
+                        </span>
+                        <span *ngIf="subdomain.pending">
+                            Comprobando si el subdominio {{subdomain.value}} esta disponible
                         </span>
                     </p>
                 </div>
