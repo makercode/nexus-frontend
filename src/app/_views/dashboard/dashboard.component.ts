@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { map, take, debounceTime } from 'rxjs';
+import { map, take, debounceTime, Observable, Subscription } from 'rxjs';
 
 import { AuthService, UserService } from '../../_services';
 
@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [SlugifyPipe]
+  providers: [ SlugifyPipe ]
 })
 
 export class DashboardComponent implements OnInit {
@@ -35,6 +35,8 @@ export class DashboardComponent implements OnInit {
 
   // Check for allow edit subdomain
   editableSubdomain: boolean = false
+  isSubomainTaken = false
+  isSubomainReviewing = false
   user: IFireUser = {} as IFireUser
   userData: IUser = {} as IUser
 
@@ -76,8 +78,7 @@ export class DashboardComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
-    this.watcher()
+    this.subdomainWatcher()
   }
 
   onBusinessChange() {
@@ -92,7 +93,7 @@ export class DashboardComponent implements OnInit {
 
   keyPressAlphaNumeric(event:KeyboardEvent) {
     var inp = String.fromCharCode(event.keyCode)
-    console.log(inp)
+    // console.log(inp)
     if (/[a-zA-Z0-9]/.test(inp)) {
       return true;
     }
@@ -133,45 +134,37 @@ export class DashboardComponent implements OnInit {
     this.width = Math.max( this.shadowWidth!.nativeElement.offsetWidth + 6 )
   }
 
-  watcher() {
-
-    let isTaken = true
-
-    let suscription
-    
-    let inputSubdomain = this.subdomain.valueChanges.pipe(
-      debounceTime(500)
-    )
+  subdomainWatcher() {
+    let connSuscription: Subscription = new Subscription()
 
     // when input change
-    inputSubdomain.subscribe(subdomain => {
-      suscription = this.afStore.doc(`subdomains/${subdomain}`).get()
-      suscription.subscribe((subdomain) => {
-        console.log( subdomain.exists )
-        isTaken = subdomain.exists
-      })
+    
+    this.subdomain.valueChanges.subscribe( (subdomain: string) => {
+      this.isSubomainReviewing = true
+      console.log(this.isSubomainReviewing)
     })
 
-  }
-
-  /*
-  subdomainTaken (afs: AngularFirestore) {
-    console.log("subdomainTaken")
-    return async (control: AbstractControl) =>  {
-      return {subdomainAvailable: false}
-
-      let isTaken = afs.collection('subdomains', (ref:any) => ref.where('subdomain','==', subdomain))
-      .valueChanges().pipe(
-        debounceTime(2000),
-        take(1),
-        map(arr => arr.length ? { subdomainAvailable: false }: null)
+    this.subdomain.valueChanges
+      .pipe(
+        debounceTime(750)
       )
-      isTaken.subscribe(res => {
-        console.log(res)
+      .subscribe( (subdomain: string) => {
+        // End prev subscrition to firestore subdomains
+        connSuscription.unsubscribe()
+
+        // Start new subscription to firestore subdomains
+        let subscriptionSubdomain = this.afStore.doc(`subdomains/${subdomain}`).valueChanges()
+        connSuscription = subscriptionSubdomain.subscribe((subdomainData) => {
+          this.isSubomainTaken = true
+          if(!subdomainData) {
+            this.isSubomainTaken = false
+          }
+          this.isSubomainReviewing = false
+          console.log(this.isSubomainTaken)
+          console.log(this.isSubomainReviewing)
+        })
+        
       })
-      return isTaken
-    }
   }
-  */
 
 }

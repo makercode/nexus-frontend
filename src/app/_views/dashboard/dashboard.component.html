@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="dashboard my-6 w-100" *ngIf="userData.subdomain">
+    <div class="dashboard my-6 w-100" *ngIf="userData">
         <div class="fill-width">
             <div class="flex-aligner d-flex flex-column dashboard-presentation py-4">
                 <p class="mb-0">
@@ -14,7 +14,7 @@
     <div class="dashboard my-6 w-100" *ngIf="userData && !userData.subdomain">
       <h3 class="h4 mb-2 d-flex">
         Estamos creando tu centro de control
-        <button [disabled]="userForm.invalid" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserAndDomainInfo()">
+        <button [disabled]="userForm.invalid || isSubomainTaken || isSubomainReviewing" mat-flat-button color="primary" class="btn sm ml-auto" (click)="sendUserAndDomainInfo()">
           <span>CREALO</span> 
         </button>
       </h3>
@@ -112,18 +112,25 @@
                             (keyup)="resizeSubdomainInput()" [style.width.px]='width'>
                         <span class="grey">.anexalo.com</span>
                     </h1> <br>
-                    <p class="m-0" *ngIf="subdomain.errors">
+                    <p class="m-0">
                         <span *ngIf="subdomain.errors?.['minlength']">
                             Tu subdominio no debe de tener menos de 4 letras.
                         </span>
                         <span *ngIf="subdomain.errors?.['maxlength']">
                             Tu subdominio no debe de tener mas de 24 letras.
                         </span>
-                        <span *ngIf="subdomain.errors?.['subdomainAvailable']">
-                            Tu subdominio ya esta tomado.
-                        </span>
-                        <span *ngIf="subdomain.pending">
-                            Comprobando si el subdominio {{subdomain.value}} esta disponible
+                        <span *ngIf="!subdomain.errors">
+                            <span *ngIf="isSubomainReviewing">
+                                <mat-icon>help_outline</mat-icon>
+                                Revisando...
+                            </span>
+                            <span *ngIf="isSubomainTaken && !isSubomainReviewing">
+                                <mat-icon>error_outline</mat-icon>
+                                Tu subdominio ya esta tomado o no esta permitido.
+                            </span>
+                            <span *ngIf="!isSubomainTaken && !isSubomainReviewing">
+                                <mat-icon>task_alt</mat-icon>
+                            </span>
                         </span>
                     </p>
                 </div>

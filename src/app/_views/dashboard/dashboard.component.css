@@ -34,3 +34,6 @@
     opacity: 0;
     visibility: hidden;
 }
+.mat-icon {
+    vertical-align: middle;
+}
